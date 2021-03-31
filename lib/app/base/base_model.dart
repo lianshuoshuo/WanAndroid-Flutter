@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/net/base_repository.dart';
 
-class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
+abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
   T mRepository;
 
   BaseViewModel() {

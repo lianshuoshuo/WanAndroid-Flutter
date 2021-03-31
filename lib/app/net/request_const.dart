@@ -1,3 +1,5 @@
-class RequestConstApi{
-  static const SERVICE_API = 'https://vip.88-spa.com:8443/v1/';
+class RequestConstApi {
+  static const SERVICE_API = 'https://www.wanandroid.com/';
+
+  static const LOGIN = 'user/login';
 }
