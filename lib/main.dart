@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
                         model.login('lian123456', 'ls123456').then((value) {
                           print('success==${value.toString()}');
                         }).catchError((e) {
-                          print('error==${e.  errorMsg.toString()}');
+                          print('error==${e.errorMsg.toString()}');
                         });
                       },
                       child: Text('Login'),

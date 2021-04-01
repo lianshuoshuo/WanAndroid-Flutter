@@ -18,7 +18,7 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
         throw result;
       }
     } catch (e) {
-      throw Exception(e);
+      throw result;
     }
     return result;
   }
