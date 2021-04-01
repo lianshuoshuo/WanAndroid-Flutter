@@ -25,7 +25,7 @@ class BaseRepository {
   // 通用post请求
   Future<dynamic> post(String path, Map<String, dynamic> params) async {
     try {
-      Response response = await _dio.post(path, data: params);
+      Response response = await _dio.post(path, queryParameters: params);
       return BaseResult.fromJson(response.data);
     } catch (error) {
       print('异常信息：' + error.toString());

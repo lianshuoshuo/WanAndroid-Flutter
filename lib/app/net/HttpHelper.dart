@@ -27,13 +27,15 @@ class HttpHelper {
   Dio _createDio() {
     final options = BaseOptions(
         baseUrl: RequestConstApi.SERVICE_API,
+        contentType: Headers.jsonContentType,
+        responseType: ResponseType.json,
         connectTimeout: 20000,
         receiveTimeout: 20000);
     final dio = new Dio(options);
     dio.interceptors
-      ..add(LogInterceptor(responseBody: GlobalConfig.isDebug))
-      ..add(CookieManager(
-          PersistCookieJar(dir: StorageManager.temporaryDirectory.path)));
+      ..add(LogInterceptor(responseBody: GlobalConfig.isDebug))..add(
+        CookieManager(
+            PersistCookieJar(dir: StorageManager.temporaryDirectory.path)));
     return dio;
   }
 

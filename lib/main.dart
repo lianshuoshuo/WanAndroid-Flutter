@@ -4,15 +4,15 @@ import 'package:flutter_wanandroid/model/login_model.dart';
 
 import 'app/config/StorageManager.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); //初始化
+  await StorageManager.init();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    StorageManager.init();
-
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -30,7 +30,11 @@ class MyApp extends StatelessWidget {
                   children: [
                     RaisedButton(
                       onPressed: () {
-                        model.login('12314414@qq.com', '123456');
+                        model.login('lian123456', 'ls123456').then((value) {
+                          print('success==${value.toString()}');
+                        }).catchError((e) {
+                          print('error==${e.  errorMsg.toString()}');
+                        });
                       },
                       child: Text('Login'),
                     )

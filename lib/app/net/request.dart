@@ -5,9 +5,10 @@ import 'HttpHelper.dart';
 import 'base_repository.dart';
 
 class WanAndroidRepository extends BaseRepository {
-  Dio dio = HttpHelper.instance.getDio();
+  Dio dio;
 
   WanAndroidRepository() {
+    dio = HttpHelper.instance.getDio();
     setdio(dio);
   }
 
@@ -15,10 +16,11 @@ class WanAndroidRepository extends BaseRepository {
     var map = Map<String, dynamic>();
     map['username'] = username;
     map['password'] = password;
-    return await post(RequestConstApi.LOGIN,map).then((value){
-      return "sadas";
-      // if(value.errorCode==0){
-      //   return
+    return await post(RequestConstApi.LOGIN, map).then((value) {
+      // if (value.errorCode == 0) {
+      //   return UserEntity().fromJson(value.data);
+      // } else {
+      return value;
       // }
     });
   }

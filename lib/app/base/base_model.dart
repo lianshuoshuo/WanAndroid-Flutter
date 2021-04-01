@@ -8,10 +8,15 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
     mRepository = createRepository();
   }
 
-  Future<dynamic> requestData(dynamic f) async {
+  Future<dynamic> requestData<T>(dynamic f) async {
     var result;
     try {
       result = await f;
+      if (result.errorCode == 0) {
+        result = (T as dynamic)().fromJson(result.data);
+      } else {
+        throw result;
+      }
     } catch (e) {
       throw Exception(e);
     }
