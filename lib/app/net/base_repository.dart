@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_wanandroid/app/net/AppException.dart';
 import 'package:flutter_wanandroid/app/net/base_result.dart';
 
 ///
@@ -16,9 +17,10 @@ class BaseRepository {
     try {
       Response response = await _dio.get(path, queryParameters: params);
       return BaseResult.fromJson(response.data);
-    } catch (error) {
-      print("异常信息：${error.toString()}");
-      return BaseResult(errorMsg: error.toString(), errorCode: 500);
+    } on DioError catch (error) {
+      print('异常信息：' + error.toString());
+      // return BaseResult(errorMsg: error.toString(), errorCode: 500);
+      ExceptionHandle().handleException(error);
     }
   }
 
@@ -27,9 +29,10 @@ class BaseRepository {
     try {
       Response response = await _dio.post(path, queryParameters: params);
       return BaseResult.fromJson(response.data);
-    } catch (error) {
+    } on DioError catch (error) {
       print('异常信息：' + error.toString());
-      return BaseResult(errorMsg: error.toString(), errorCode: 500);
+      // return BaseResult(errorMsg: error.toString(), errorCode: 500);
+      ExceptionHandle().handleException(error);
     }
   }
 }

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         home: ProviderWidget<LoginViewModel>(
           model: LoginViewModel(),
-          builder: (context, model, child) {
+          builder: (context,LoginViewModel model, child) {
             return Scaffold(
               appBar: AppBar(
                 title: Text("Flutter-WanAndroid"),
@@ -30,14 +30,15 @@ class MyApp extends StatelessWidget {
                   children: [
                     RaisedButton(
                       onPressed: () {
-                        model.login('lian123456', 'ls123456').then((value) {
-                          print('success==${value.toString()}');
+                        model.login('lian123', 'ls123456').then((value) {
+                          print('success==${value.username}');
                         }).catchError((e) {
                           print('error==${e.errorMsg.toString()}');
                         });
                       },
                       child: Text('Login'),
-                    )
+                    ),
+                    Text(model.userEntity.username??"")
                   ],
                 ),
               ),

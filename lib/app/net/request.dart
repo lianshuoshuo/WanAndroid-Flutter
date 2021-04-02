@@ -12,16 +12,11 @@ class WanAndroidRepository extends BaseRepository {
     setdio(dio);
   }
 
+  ///登录
   Future<dynamic> login(String username, String password) async {
     var map = Map<String, dynamic>();
     map['username'] = username;
     map['password'] = password;
-    return await post(RequestConstApi.LOGIN, map).then((value) {
-      // if (value.errorCode == 0) {
-      //   return UserEntity().fromJson(value.data);
-      // } else {
-      return value;
-      // }
-    });
+    return await post(RequestConstApi.LOGIN, map);
   }
 }
