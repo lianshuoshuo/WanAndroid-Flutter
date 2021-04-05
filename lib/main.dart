@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
 import 'package:flutter_wanandroid/model/login_model.dart';
-import 'package:flutter_wanandroid/widget/LoadingDialog.dart';
-import 'package:flutter_wanandroid/widget/view_state_helper.dart';
+import 'package:flutter_wanandroid/page/list_page.dart';
 
 import 'app/config/StorageManager.dart';
 
@@ -13,7 +12,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,8 +31,11 @@ class MyApp extends StatelessWidget {
                   children: [
                     RaisedButton(
                       onPressed: () {
-                        model.login('lian123', 'ls1234566').then((value) {
-                          print('success==${value.username}');
+                        model.login('lian123', 'ls123456').then((value) {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return ListPage();
+                          }));
                         }).catchError((e) {
                           print('error==${e.errorMsg.toString()}');
                         });
