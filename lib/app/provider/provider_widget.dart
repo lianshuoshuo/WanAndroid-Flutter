@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/app/base/base_model.dart';
+import 'package:flutter_wanandroid/widget/LoadingDialog.dart';
 import 'package:provider/provider.dart';
 
 //封装需要Provider 管理页面状态的组件
-class ProviderWidget<T extends ChangeNotifier> extends StatefulWidget {
+class ProviderWidget<T extends BaseViewModel> extends StatefulWidget {
   final T model;
   final ValueWidgetBuilder<T> builder;
   final Widget child;
 
   final Function(T model) initData;
+
+  LoadingDialog loadingDialog;
 
   ProviderWidget(
       {@required this.model,
@@ -21,7 +25,7 @@ class ProviderWidget<T extends ChangeNotifier> extends StatefulWidget {
   }
 }
 
-class _ProviderWidget<T extends ChangeNotifier>
+class _ProviderWidget<T extends BaseViewModel>
     extends State<ProviderWidget<T>> {
   T model;
 
@@ -30,6 +34,12 @@ class _ProviderWidget<T extends ChangeNotifier>
     model = widget.model;
     widget.initData?.call(model);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    registerLoading();
+    super.didChangeDependencies();
   }
 
   @override
@@ -49,5 +59,30 @@ class _ProviderWidget<T extends ChangeNotifier>
         child: widget.child,
       ),
     );
+  }
+
+  void registerLoading() {
+    model.loadingChange.showDialog.addListener(() {
+      print("loading...");
+      showLoading();
+    });
+    model.loadingChange.dismissDialog.addListener(() {
+      print("loadingEnd...");
+      dismissLoading();
+    });
+  }
+
+  void showLoading() {
+    if (widget.loadingDialog == null) {
+      widget.loadingDialog = LoadingDialog();
+    }
+    showDialog(context: context, builder: (ctx) => widget.loadingDialog);
+  }
+
+  void dismissLoading() {
+    if (widget.loadingDialog != null) {
+      widget.loadingDialog.dismissDialog();
+      widget.loadingDialog = null;
+    }
   }
 }

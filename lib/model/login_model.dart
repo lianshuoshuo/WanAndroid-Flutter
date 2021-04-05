@@ -13,11 +13,11 @@ class LoginViewModel extends BaseViewModel<WanAndroidRepository> {
 
   Future<dynamic> login(username, password) async {
     _userEntity =
-        await requestData<UserEntity>(mRepository.login(username, password));
+        await requestData<UserEntity>(mRepository.login(username, password),isShowLoadDialog: true);
     notifyListeners();
-    return _userEntity;
+      return _userEntity;
   }
-
+        
   @override
   WanAndroidRepository createRepository() {
     return WanAndroidRepository();
