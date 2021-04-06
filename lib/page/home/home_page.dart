@@ -10,8 +10,13 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('首页'),
+    return Container(
+      height: 500,
+      color: Colors.amber,
+      child:Center(child:  Container(
+        height: 300,
+        color: Colors.blue,
+      ),),
     );
   }
 }
