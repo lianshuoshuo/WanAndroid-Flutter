@@ -40,8 +40,10 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                 ),
               ),
               _buildTabBar(),
-              Expanded(
-                flex: 2,
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: 300,minHeight: 200
+                ),
                 child: _buildTabBarView(),
               ),
               MaterialButton(
@@ -59,11 +61,6 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget loginType() {
-    return Column(
-      children: [],
-    );
-  }
 
   Widget _buildTabBar() => TabBar(
         labelStyle: TextStyle(fontSize: 16),
@@ -91,7 +88,6 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
 
   Widget loginInput() {
     return Container(
-      height: 300,
       margin: EdgeInsets.fromLTRB(20, 50, 40, 40),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
