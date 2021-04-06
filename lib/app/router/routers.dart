@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/page/main_page.dart';
+import 'package:flutter_wanandroid/page/mine/login_page.dart';
+
+class routers {
+  static const String LOGIN = "/login";
+}
 
 ///路由管理
-class MyRouters{
-  static final Map<String,WidgetBuilder> _routes={
+class MyRouters {
+  static final Map<String, WidgetBuilder> _routes = {
     "/": (BuildContext context, {Object args}) => MainPage(),
+    routers.LOGIN: (BuildContext context, {Object args}) => LoginPage(),
   };
 
   static MyRouters _singleton;
+
   MyRouters._internal();
 
   factory MyRouters() {
