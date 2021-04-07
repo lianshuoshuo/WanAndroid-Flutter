@@ -11,21 +11,38 @@ class LoginPage extends StatefulWidget {
 class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   final tabs = [];
   TabController _tabController;
+  PageController _pageController;
+
   String btText = '登录';
+
+  Matrix4 _matrix4;
+  double y =-70;
 
   @override
   void initState() {
+    _matrix4 = Matrix4.identity();
     _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(() {
+    _pageController = PageController();
+    _pageController.addListener(() {
       setState(() {
-        btText = _tabController.index == 0 ? '登录' : '注册';
+        y = (_pageController.offset/10)-70;
+        // y = y+1;
       });
     });
+    // _tabController.addListener(() {
+    //   setState(() {
+    //     btText = _tabController.index == 0 ? '登录' : '注册';
+    //   });
+    // });
+
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    _matrix4 = Matrix4.translationValues(0, y, 0);
+
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -53,14 +70,25 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                 height: 300,
                 child: _buildTabBarView(),
               ),
-              MaterialButton(
-                onPressed: () {},
-                color: Colors.blue,
-                textColor: Colors.white,
-                child: Text(btText),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-              )
+              Transform(
+                  transform: _matrix4,
+                  child: MaterialButton(
+                    onPressed: () {},
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    child: Text(btText),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                  )),
+              // Slider(
+              //     min: -100,
+              //     max: 100,
+              //     value: y,
+              //     onChanged: (v) {
+              //       setState(() {
+              //         y = v;
+              //       });
+              //     })
             ],
           ),
         ),
@@ -88,6 +116,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       );
 
   Widget _buildTabBarView() => PageView(
+    controller: _pageController,
       children: [loginInput(), registerInput()],
       onPageChanged: (index) {
         _tabController.animateTo(index);
