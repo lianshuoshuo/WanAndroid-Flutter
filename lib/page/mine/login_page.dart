@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/widget/MyBehavior.dart';
 
 ///登录
 class LoginPage extends StatefulWidget {
@@ -41,43 +42,46 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
         color: Colors.white,
         padding:
             EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                child: CloseButton(),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 100),
-                child: FlutterLogo(
-                  size: 50,
+        child: ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: CloseButton(),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: _buildTabBar(),
-              ),
-              Container(
-                height: 300,
-                child: _buildTabBarView(),
-              ),
-              ValueListenableBuilder(
-                  valueListenable: _matrixValue,
-                  builder: (context, value, child) {
-                    return Transform(
-                        transform: value,
-                        child: MaterialButton(
-                          onPressed: () {},
-                          color: Colors.blue,
-                          textColor: Colors.white,
-                          child: Text(btText),
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                        ));
-                  }),
-            ],
+                Padding(
+                  padding: EdgeInsets.only(top: 100),
+                  child: FlutterLogo(
+                    size: 50,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: _buildTabBar(),
+                ),
+                Container(
+                  height: 300,
+                  child: _buildTabBarView(),
+                ),
+                ValueListenableBuilder(
+                    valueListenable: _matrixValue,
+                    builder: (context, value, child) {
+                      return Transform(
+                          transform: value,
+                          child: MaterialButton(
+                            onPressed: () {},
+                            color: Colors.blue,
+                            textColor: Colors.white,
+                            child: Text(btText),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                          ));
+                    }),
+              ],
+            ),
           ),
         ),
       ),
