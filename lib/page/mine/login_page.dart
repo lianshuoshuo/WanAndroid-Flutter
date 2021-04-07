@@ -12,37 +12,29 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   final tabs = [];
   TabController _tabController;
   PageController _pageController;
-
   String btText = '登录';
 
   Matrix4 _matrix4;
-  double y =-70;
+  ValueNotifier<Matrix4> _matrixValue;
+
+  double y = -70;
 
   @override
   void initState() {
-    _matrix4 = Matrix4.identity();
+    _matrix4 = Matrix4.translationValues(0, y, 0);
+    _matrixValue = ValueNotifier(_matrix4);
     _tabController = TabController(length: 2, vsync: this);
     _pageController = PageController();
     _pageController.addListener(() {
-      setState(() {
-        y = (_pageController.offset/10)-70;
-        // y = y+1;
-      });
+      y = (_pageController.offset / 10) - 70;
+      _matrixValue.value = Matrix4.translationValues(0, y, 0);
+      btText = _tabController.index == 0 ? '登录' : '注册';
     });
-    // _tabController.addListener(() {
-    //   setState(() {
-    //     btText = _tabController.index == 0 ? '登录' : '注册';
-    //   });
-    // });
-
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _matrix4 = Matrix4.translationValues(0, y, 0);
-
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -70,25 +62,21 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                 height: 300,
                 child: _buildTabBarView(),
               ),
-              Transform(
-                  transform: _matrix4,
-                  child: MaterialButton(
-                    onPressed: () {},
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    child: Text(btText),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                  )),
-              // Slider(
-              //     min: -100,
-              //     max: 100,
-              //     value: y,
-              //     onChanged: (v) {
-              //       setState(() {
-              //         y = v;
-              //       });
-              //     })
+              ValueListenableBuilder(
+                  valueListenable: _matrixValue,
+                  builder: (context, value, child) {
+                    return Transform(
+                        transform: value,
+                        child: MaterialButton(
+                          onPressed: () {},
+                          color: Colors.blue,
+                          textColor: Colors.white,
+                          child: Text(btText),
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                        ));
+                  }),
             ],
           ),
         ),
@@ -105,6 +93,10 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
         indicatorWeight: 0,
         indicator: BoxDecoration(),
         controller: _tabController,
+        onTap: (index) {
+          _pageController.animateToPage(index,
+              duration: Duration(milliseconds: 500), curve: Curves.ease);
+        },
         tabs: [
           Tab(
             text: '登录',
@@ -116,7 +108,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       );
 
   Widget _buildTabBarView() => PageView(
-    controller: _pageController,
+      controller: _pageController,
       children: [loginInput(), registerInput()],
       onPageChanged: (index) {
         _tabController.animateTo(index);
@@ -127,15 +119,15 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       alignment: Alignment.topCenter,
       child: Container(
         height: 200,
-        margin: EdgeInsets.fromLTRB(20, 10, 40, 40),
+        margin: EdgeInsets.fromLTRB(40, 10, 40, 40),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
-            color: Colors.white,
+            color: Color(0xfafcfcfc),
             boxShadow: [
               BoxShadow(
-                  color: Colors.blue,
-                  offset: Offset(5, 5),
-                  blurRadius: 15,
+                  color: Colors.black12,
+                  offset: Offset(3, 5),
+                  blurRadius: 10,
                   spreadRadius: 1)
             ]),
         child: Column(
@@ -146,7 +138,10 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
               height: 50,
               child: TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'username'),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    labelText: '用户名'),
               ),
             ),
             Container(
@@ -155,7 +150,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
               child: TextField(
                 obscureText: true,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'password'),
+                    border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(10)),), labelText: '密码'),
               ),
             ),
           ],
@@ -167,15 +162,15 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   Widget registerInput() {
     return Container(
       height: 300,
-      margin: EdgeInsets.fromLTRB(20, 10, 40, 40),
+      margin: EdgeInsets.fromLTRB(40, 10, 40, 40),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Colors.white,
+          color: Color(0xfafcfcfc),
           boxShadow: [
             BoxShadow(
-                color: Colors.blue,
-                offset: Offset(5, 5),
-                blurRadius: 15,
+                color: Colors.black12,
+                offset: Offset(3, 5),
+                blurRadius: 10,
                 spreadRadius: 1)
           ]),
       child: Column(
@@ -186,7 +181,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             height: 50,
             child: TextField(
               decoration: InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'username'),
+                  border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(10)),), labelText: '用户名'),
             ),
           ),
           Container(
@@ -195,7 +190,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             child: TextField(
               obscureText: true,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'password'),
+                  border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(10)),), labelText: '密码'),
             ),
           ),
           Container(
@@ -204,7 +199,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             child: TextField(
               obscureText: true,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'repassword'),
+                  border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(10)),), labelText: '确定密码'),
             ),
           ),
         ],
