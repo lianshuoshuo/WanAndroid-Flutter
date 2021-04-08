@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 import 'package:flutter_wanandroid/app/router/routers.dart';
 
 class MinePage extends StatefulWidget {
@@ -21,7 +22,18 @@ class MinePageState extends State<MinePage> {
               onPressed: () {
                 Navigator.of(context).pushNamed(routers.LOGIN);
               },
-              child: Text('登录'))
+              child: Text('登录')),
+          TextButton(
+              onPressed: () {
+                // Navigator.of(context).pushNamed(routers.SETTING);
+                GlobalConfig.userModel.clearUser();
+              },
+              child: Text('设置')),
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(routers.COLLECT);
+              },
+              child: Text('收藏')),
         ],
       ),
     );

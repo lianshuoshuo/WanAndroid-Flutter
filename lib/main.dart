@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 
 import 'app/config/StorageManager.dart';
 import 'app/router/routers.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: GlobalConfig.navigatorKey,
       title: 'wan-android-flutter',
       theme: ThemeData(
         primarySwatch: Colors.blue,

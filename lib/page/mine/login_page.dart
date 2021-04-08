@@ -1,7 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
+import 'package:flutter_wanandroid/model/login_model.dart';
+import 'package:flutter_wanandroid/page/mine/login_widget.dart';
 import 'package:flutter_wanandroid/widget/MyBehavior.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 ///登录
 class LoginPage extends StatefulWidget {
@@ -10,18 +14,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
-  final tabs = [];
+  TextEditingController _nameEditCtl, _pwdEditCtl, _rePwdEditCtl;
+
   TabController _tabController;
   PageController _pageController;
   String btText = '登录';
 
   Matrix4 _matrix4;
   ValueNotifier<Matrix4> _matrixValue;
-
   double y = -70;
 
   @override
   void initState() {
+    _nameEditCtl = TextEditingController();
+    _pwdEditCtl = TextEditingController();
+    _rePwdEditCtl = TextEditingController();
+
     _matrix4 = Matrix4.translationValues(0, y, 0);
     _matrixValue = ValueNotifier(_matrix4);
     _tabController = TabController(length: 2, vsync: this);
@@ -57,29 +65,44 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                     size: 50,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: _buildTabBar(),
-                ),
-                Container(
-                  height: 300,
-                  child: _buildTabBarView(),
-                ),
-                ValueListenableBuilder(
-                    valueListenable: _matrixValue,
-                    builder: (context, value, child) {
-                      return Transform(
-                          transform: value,
-                          child: MaterialButton(
-                            onPressed: () {},
-                            color: Colors.blue,
-                            textColor: Colors.white,
-                            child: Text(btText),
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                          ));
-                    }),
+                ProviderWidget(
+                    model: LoginViewModel(),
+                    builder: (context, LoginViewModel model, child) {
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: _buildTabBar(),
+                          ),
+                          Container(
+                            height: 300,
+                            child: _buildTabBarView(),
+                          ),
+                          ValueListenableBuilder(
+                              valueListenable: _matrixValue,
+                              builder: (context, value, child) {
+                                return Transform(
+                                    transform: value,
+                                    child: MaterialButton(
+                                      onPressed: () {
+                                        model
+                                            .login(_nameEditCtl.text,
+                                                _pwdEditCtl.text)
+                                            .then((value) {
+                                          Fluttertoast.showToast(msg: '登录成功');
+                                        });
+                                      },
+                                      color: Colors.blue,
+                                      textColor: Colors.white,
+                                      child: Text(btText),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20))),
+                                    ));
+                              }),
+                        ],
+                      );
+                    })
               ],
             ),
           ),
@@ -87,6 +110,8 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       ),
     );
   }
+
+  login() {}
 
   Widget _buildTabBar() => TabBar(
         labelStyle: TextStyle(fontSize: 20),
@@ -119,95 +144,17 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       });
 
   Widget loginInput() {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        height: 200,
-        margin: EdgeInsets.fromLTRB(40, 10, 40, 40),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            color: Color(0xfafcfcfc),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black12,
-                  offset: Offset(3, 5),
-                  blurRadius: 10,
-                  spreadRadius: 1)
-            ]),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              height: 50,
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    labelText: '用户名'),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-              height: 50,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(10)),), labelText: '密码'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    return LoginContainer(_nameEditCtl, _pwdEditCtl);
   }
 
   Widget registerInput() {
-    return Container(
-      height: 300,
-      margin: EdgeInsets.fromLTRB(40, 10, 40, 40),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Color(0xfafcfcfc),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black12,
-                offset: Offset(3, 5),
-                blurRadius: 10,
-                spreadRadius: 1)
-          ]),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-            height: 50,
-            child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(10)),), labelText: '用户名'),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-            height: 50,
-            child: TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(10)),), labelText: '密码'),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-            height: 50,
-            child: TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(10)),), labelText: '确定密码'),
-            ),
-          ),
-        ],
-      ),
-    );
+    return RegisterContainer();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _pageController.dispose();
+    super.dispose();
   }
 }

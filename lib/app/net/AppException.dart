@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_wanandroid/app/GlobalConfig.dart';
+import 'package:flutter_wanandroid/app/router/routers.dart';
 
 class AppException implements Exception {
   String errorMsg;
@@ -9,6 +11,9 @@ class AppException implements Exception {
     switch (errorCode) {
       case -1:
         print(errorMsg);
+        break;
+      case -1001:
+        GlobalConfig.navigatorKey.currentState.pushNamed(routers.LOGIN);
         break;
     }
   }

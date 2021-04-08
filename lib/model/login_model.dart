@@ -1,23 +1,27 @@
 import 'package:flutter_wanandroid/app/base/base_model.dart';
+import 'package:flutter_wanandroid/app/config/StorageManager.dart';
 import 'package:flutter_wanandroid/app/net/request.dart';
 import 'package:flutter_wanandroid/entity/user_entity.dart';
 
+import 'user_model.dart';
+
 class LoginViewModel extends BaseViewModel<WanAndroidRepository> {
-  UserEntity _userEntity;
+  UserModel userModel;
 
   LoginViewModel() {
-    _userEntity = new UserEntity();
+    userModel = new UserModel();
   }
-
-  UserEntity get userEntity => _userEntity;
 
   Future<dynamic> login(username, password) async {
-    _userEntity =
-        await requestData<UserEntity>(mRepository.login(username, password),isShowLoadDialog: true);
+    var user = await requestData<UserEntity>(
+        mRepository.login(username, password),
+        isShowLoadDialog: true);
+    userModel.saveUser(user);
+    StorageManager.localStorage.setItem("userInfo", userModel.user);
     notifyListeners();
-      return _userEntity;
+    return userModel;
   }
-        
+
   @override
   WanAndroidRepository createRepository() {
     return WanAndroidRepository();

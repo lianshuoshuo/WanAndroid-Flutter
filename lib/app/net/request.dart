@@ -19,4 +19,11 @@ class WanAndroidRepository extends BaseRepository {
     map['password'] = password;
     return await post(RequestConstApi.LOGIN, map);
   }
+
+  Future<dynamic> getCollectList() async {
+    // var map = Map<String, dynamic>();
+    // map['username'] = username;
+    // map['password'] = password;
+    return await get(RequestConstApi.COLLECT_LIST);
+  }
 }
