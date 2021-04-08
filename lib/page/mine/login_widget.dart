@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginContainer extends StatelessWidget{
-
+class LoginContainer extends StatelessWidget {
   TextEditingController _nameEditCtl, _pwdEditCtl;
-
 
   LoginContainer(this._nameEditCtl, this._pwdEditCtl);
 
@@ -59,8 +57,11 @@ class LoginContainer extends StatelessWidget{
   }
 }
 
-
 class RegisterContainer extends StatelessWidget {
+  TextEditingController _nameEditCtl, _pwdEditCtl, _rePwdEditCtl;
+
+  RegisterContainer(this._nameEditCtl, this._pwdEditCtl, this._rePwdEditCtl);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -83,6 +84,7 @@ class RegisterContainer extends StatelessWidget {
             margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
             height: 50,
             child: TextField(
+              controller: _nameEditCtl,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -94,6 +96,7 @@ class RegisterContainer extends StatelessWidget {
             margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
             height: 50,
             child: TextField(
+              controller: _pwdEditCtl,
               obscureText: true,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -106,6 +109,7 @@ class RegisterContainer extends StatelessWidget {
             margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
             height: 50,
             child: TextField(
+              controller: _rePwdEditCtl,
               obscureText: true,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -119,4 +123,3 @@ class RegisterContainer extends StatelessWidget {
     );
   }
 }
-

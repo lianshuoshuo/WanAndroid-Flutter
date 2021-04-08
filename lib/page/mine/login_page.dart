@@ -85,12 +85,25 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                                     transform: value,
                                     child: MaterialButton(
                                       onPressed: () {
-                                        model
-                                            .login(_nameEditCtl.text,
-                                                _pwdEditCtl.text)
-                                            .then((value) {
-                                          Fluttertoast.showToast(msg: '登录成功');
-                                        });
+                                        if (_pageController.page == 0) {
+                                          model
+                                              .login(_nameEditCtl.text,
+                                                  _pwdEditCtl.text)
+                                              .then((value) {
+                                            Fluttertoast.showToast(msg: '登录成功');
+                                            Navigator.of(context).pop();
+                                          });
+                                        } else {
+                                          model
+                                              .register(
+                                                  _nameEditCtl.text,
+                                                  _pwdEditCtl.text,
+                                                  _rePwdEditCtl.text)
+                                              .then((value) {
+                                            Fluttertoast.showToast(msg: '注册成功');
+                                            Navigator.of(context).pop();
+                                          });
+                                        }
                                       },
                                       color: Colors.blue,
                                       textColor: Colors.white,
@@ -110,8 +123,6 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       ),
     );
   }
-
-  login() {}
 
   Widget _buildTabBar() => TabBar(
         labelStyle: TextStyle(fontSize: 20),
@@ -148,7 +159,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   }
 
   Widget registerInput() {
-    return RegisterContainer();
+    return RegisterContainer(_nameEditCtl, _pwdEditCtl, _rePwdEditCtl);
   }
 
   @override
@@ -158,3 +169,4 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 }
+
