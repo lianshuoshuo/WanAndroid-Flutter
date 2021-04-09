@@ -14,7 +14,7 @@ class LoginContainer extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(40, 10, 40, 40),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
-            color: Color(0xfafcfcfc),
+            color: Color(0xd2fcfcfc),
             boxShadow: [
               BoxShadow(
                   color: Colors.black12,
@@ -26,7 +26,7 @@ class LoginContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              margin: EdgeInsets.fromLTRB(30, 20, 30, 0),
               height: 50,
               child: TextField(
                 controller: _nameEditCtl,
@@ -38,7 +38,7 @@ class LoginContainer extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+              margin: EdgeInsets.fromLTRB(30, 20, 30, 20),
               height: 50,
               child: TextField(
                 controller: _pwdEditCtl,
@@ -69,7 +69,7 @@ class RegisterContainer extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(40, 10, 40, 40),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Color(0xfafcfcfc),
+          color: Color(0xd2fcfcfc),
           boxShadow: [
             BoxShadow(
                 color: Colors.black12,
@@ -81,7 +81,7 @@ class RegisterContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+            margin: EdgeInsets.fromLTRB(30, 20, 30, 0),
             height: 50,
             child: TextField(
               controller: _nameEditCtl,
@@ -93,7 +93,7 @@ class RegisterContainer extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+            margin: EdgeInsets.fromLTRB(30, 20, 30, 20),
             height: 50,
             child: TextField(
               controller: _pwdEditCtl,
@@ -106,7 +106,7 @@ class RegisterContainer extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
+            margin: EdgeInsets.fromLTRB(30, 0, 30, 20),
             height: 50,
             child: TextField(
               controller: _rePwdEditCtl,

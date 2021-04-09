@@ -10,7 +10,6 @@ class AppException implements Exception {
   AppException(this.errorMsg, this.errorCode, {this.data}) {
     switch (errorCode) {
       case -1:
-        print(errorMsg);
         break;
       case -1001:
         GlobalConfig.navigatorKey.currentState.pushNamed(routers.LOGIN);

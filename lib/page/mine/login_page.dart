@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:animatedloginbutton/animatedloginbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
 import 'package:flutter_wanandroid/model/login_model.dart';
@@ -15,7 +16,11 @@ class LoginPage extends StatefulWidget {
 
 class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   TextEditingController _nameEditCtl, _pwdEditCtl, _rePwdEditCtl;
+  final LoginErrorMessageController loginErrorMessageController =
+      LoginErrorMessageController();
 
+  final LoginErrorMessageController loginErrorMessageController2 =
+      LoginErrorMessageController();
   TabController _tabController;
   PageController _pageController;
   String btText = '登录';
@@ -47,9 +52,13 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        color: Colors.white,
         padding:
             EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/images/login_bg.jpg'),
+        )),
         child: ScrollConfiguration(
           behavior: MyBehavior(),
           child: SingleChildScrollView(
@@ -57,7 +66,9 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: CloseButton(),
+                  child: CloseButton(
+                    color: Colors.white,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 100),
@@ -66,35 +77,42 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                   ),
                 ),
                 ProviderWidget(
-                    model: LoginViewModel(),
-                    builder: (context, LoginViewModel model, child) {
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 20),
-                            child: _buildTabBar(),
-                          ),
-                          Container(
-                            height: 300,
-                            child: _buildTabBarView(),
-                          ),
-                          ValueListenableBuilder(
-                              valueListenable: _matrixValue,
-                              builder: (context, value, child) {
-                                return Transform(
-                                    transform: value,
-                                    child: MaterialButton(
-                                      onPressed: () {
+                  model: LoginViewModel(),
+                  builder: (context, LoginViewModel model, child) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: _buildTabBar(),
+                        ),
+                        Container(
+                          height: 300,
+                          child: _buildTabBarView(),
+                        ),
+                        ValueListenableBuilder(
+                            valueListenable: _matrixValue,
+                            builder: (context, value, child) {
+                              return Transform(
+                                  transform: value,
+                                  child: AnimatedLoginButton(
+                                    loginTip: btText,
+                                    loginErrorMessageController:
+                                        loginErrorMessageController,
+                                    onTap: () async {
+                                      {
                                         if (_pageController.page == 0) {
-                                          model
+                                          await model
                                               .login(_nameEditCtl.text,
                                                   _pwdEditCtl.text)
                                               .then((value) {
                                             Fluttertoast.showToast(msg: '登录成功');
                                             Navigator.of(context).pop();
+                                          }).catchError((e) {
+                                            loginErrorMessageController
+                                                .showErrorMessage(e.errorMsg);
                                           });
                                         } else {
-                                          model
+                                          await model
                                               .register(
                                                   _nameEditCtl.text,
                                                   _pwdEditCtl.text,
@@ -102,20 +120,19 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                                               .then((value) {
                                             Fluttertoast.showToast(msg: '注册成功');
                                             Navigator.of(context).pop();
+                                          }).catchError((e) {
+                                            loginErrorMessageController
+                                                .showErrorMessage(e.errorMsg);
                                           });
                                         }
-                                      },
-                                      color: Colors.blue,
-                                      textColor: Colors.white,
-                                      child: Text(btText),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                    ));
-                              }),
-                        ],
-                      );
-                    })
+                                      }
+                                    },
+                                  ));
+                            }),
+                      ],
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -125,11 +142,11 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildTabBar() => TabBar(
-        labelStyle: TextStyle(fontSize: 20),
-        unselectedLabelStyle: TextStyle(fontSize: 16),
+        labelStyle: TextStyle(fontSize: 22),
+        unselectedLabelStyle: TextStyle(fontSize: 18),
         isScrollable: true,
-        labelColor: Colors.blue,
-        unselectedLabelColor: Colors.grey,
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.white60,
         indicatorWeight: 0,
         indicator: BoxDecoration(),
         controller: _tabController,
@@ -169,4 +186,3 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 }
-
