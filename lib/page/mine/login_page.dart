@@ -18,9 +18,6 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
   TextEditingController _nameEditCtl, _pwdEditCtl, _rePwdEditCtl;
   final LoginErrorMessageController loginErrorMessageController =
       LoginErrorMessageController();
-
-  final LoginErrorMessageController loginErrorMessageController2 =
-      LoginErrorMessageController();
   TabController _tabController;
   PageController _pageController;
   String btText = '登录';
@@ -43,6 +40,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       y = (_pageController.offset / 10) - 70;
       _matrixValue.value = Matrix4.translationValues(0, y, 0);
       btText = _tabController.index == 0 ? '登录' : '注册';
+      loginErrorMessageController.setText(btText);
     });
     super.initState();
   }
