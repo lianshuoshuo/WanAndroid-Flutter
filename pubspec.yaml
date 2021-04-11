@@ -44,9 +44,6 @@ dependencies:
   shared_preferences: 0.5.10
   # 本地json对象存储
   localstorage: ^3.0.2+5
-  rounded_loading_button: ^1.0.0
-  animatedloginbutton: ^0.1.1
-
 
 
 

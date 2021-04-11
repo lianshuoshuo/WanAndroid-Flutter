@@ -1,11 +1,11 @@
 import 'dart:ui';
 
-import 'package:animatedloginbutton/animatedloginbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
 import 'package:flutter_wanandroid/model/login_model.dart';
 import 'package:flutter_wanandroid/page/mine/login_widget.dart';
 import 'package:flutter_wanandroid/widget/MyBehavior.dart';
+import 'package:flutter_wanandroid/widget/animatedloginbutton.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 ///登录

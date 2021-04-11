@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:animatedloginbutton/animatedloginbutton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/widget/animatedloginbutton.dart';
 
 class NavigatePage extends StatefulWidget {
   @override
