@@ -15,13 +15,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
+  ///输入框监听
   TextEditingController _nameEditCtl, _pwdEditCtl, _rePwdEditCtl;
+
+  ///button动画监听
   final LoginErrorMessageController loginErrorMessageController =
       LoginErrorMessageController();
+
+  ///tab page监听
   TabController _tabController;
   PageController _pageController;
+
   String btText = '登录';
 
+  ///动画参数
   Matrix4 _matrix4;
   ValueNotifier<Matrix4> _matrixValue;
   double y = -70;
@@ -34,6 +41,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
 
     _matrix4 = Matrix4.translationValues(0, y, 0);
     _matrixValue = ValueNotifier(_matrix4);
+
     _tabController = TabController(length: 2, vsync: this);
     _pageController = PageController();
     _pageController.addListener(() {
@@ -42,6 +50,7 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       btText = _tabController.index == 0 ? '登录' : '注册';
       loginErrorMessageController.setText(btText);
     });
+
     super.initState();
   }
 
@@ -164,18 +173,13 @@ class LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
 
   Widget _buildTabBarView() => PageView(
       controller: _pageController,
-      children: [loginInput(), registerInput()],
+      children: [
+        LoginContainer(_nameEditCtl, _pwdEditCtl),
+        RegisterContainer(_nameEditCtl, _pwdEditCtl, _rePwdEditCtl)
+      ],
       onPageChanged: (index) {
         _tabController.animateTo(index);
       });
-
-  Widget loginInput() {
-    return LoginContainer(_nameEditCtl, _pwdEditCtl);
-  }
-
-  Widget registerInput() {
-    return RegisterContainer(_nameEditCtl, _pwdEditCtl, _rePwdEditCtl);
-  }
 
   @override
   void dispose() {
