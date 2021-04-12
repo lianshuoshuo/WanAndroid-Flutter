@@ -1,4 +1,3 @@
-
 import 'package:flutter_wanandroid/entity/user_entity.dart';
 
 userEntityFromJson(UserEntity data, Map<String, dynamic> json) {

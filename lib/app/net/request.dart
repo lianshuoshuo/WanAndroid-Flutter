@@ -31,11 +31,15 @@ class WanAndroidRepository extends BaseRepository {
   }
 
   ///退出登录
-   Future<dynamic> logout() async {
+  Future<dynamic> logout() async {
     return await get(RequestConstApi.LOGOUT);
   }
 
   Future<dynamic> getCollectList() async {
     return await get(RequestConstApi.COLLECT_LIST);
+  }
+
+  Future getBannerList() async {
+    return await get(RequestConstApi.BANNER_LIST);
   }
 }

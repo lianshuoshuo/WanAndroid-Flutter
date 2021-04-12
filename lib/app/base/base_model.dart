@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/net/AppException.dart';
-import 'package:flutter_wanandroid/app/net/EntityFactory.dart';
 import 'package:flutter_wanandroid/app/net/base_repository.dart';
+import 'package:flutter_wanandroid/app/net/base_result.dart';
 import 'package:flutter_wanandroid/app/provider/loading_state.dart';
 import 'package:flutter_wanandroid/app/provider/view_state.dart';
-import 'package:flutter_wanandroid/generated/json/base/json_convert_content.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
@@ -33,17 +32,43 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
   }
 
   ///请求结果过滤
-  Future<dynamic> requestData<N extends JsonConvert>(dynamic f,
+  Future<dynamic> requestData<N>(dynamic f,
       {bool isShowPageState = false, bool isShowLoadDialog = false}) async {
     var result;
     try {
       if (isShowPageState) setLoading();
       if (isShowLoadDialog) loadingChange.showDialog.notifyListeners();
-      result = await f;
-      if (result.errorCode == 0) {
+      var baseEntity = BaseEntity<N>.fromJson(await f);
+      if (baseEntity.errorCode == 0) {
         // 数据请求成功
         setSuccess();
-        result = EntityFactory.generateOBJ<N>(result.data);
+        result = baseEntity.data;
+      } else {
+        throw result;
+      }
+    } catch (e) {
+      if (isShowPageState) setError(Error(), message: "请求失败");
+      Fluttertoast.showToast(msg: e.errorMsg);
+      throw AppException(e.errorMsg, e.errorCode);
+    } finally {
+      if (isShowLoadDialog) loadingChange.dismissDialog.notifyListeners();
+    }
+    return result;
+  }
+
+  ///请求结果过滤
+
+  Future<dynamic> requestListData<N>(dynamic f,
+      {bool isShowPageState = false, bool isShowLoadDialog = false}) async {
+    var result;
+    try {
+      if (isShowPageState) setLoading();
+      if (isShowLoadDialog) loadingChange.showDialog.notifyListeners();
+      var baseListEntity = BaseListEntity<N>.fromJson(await f);
+      if (baseListEntity.errorCode == 0) {
+        // 数据请求成功
+        setSuccess();
+        result = baseListEntity.data;
       } else {
         throw result;
       }

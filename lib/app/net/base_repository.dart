@@ -16,7 +16,7 @@ class BaseRepository {
   Future<dynamic> get(String path, {Map<String, dynamic> params}) async {
     try {
       Response response = await _dio.get(path, queryParameters: params);
-      return BaseResult.fromJson(response.data);
+      return response.data;
     } on DioError catch (error) {
       print('异常信息：' + error.toString());
       // return BaseResult(errorMsg: error.toString(), errorCode: 500);
@@ -28,7 +28,7 @@ class BaseRepository {
   Future<dynamic> post(String path, Map<String, dynamic> params) async {
     try {
       Response response = await _dio.post(path, queryParameters: params);
-      return BaseResult.fromJson(response.data);
+      return response.data;
     } on DioError catch (error) {
       print('异常信息：' + error.toString());
       // return BaseResult(errorMsg: error.toString(), errorCode: 500);

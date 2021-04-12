@@ -8,4 +8,6 @@ class RequestConstApi {
   static const LOGOUT = 'user/logout/json';
 
   static const COLLECT_LIST = 'lg/collect/list/0/json';
+
+  static const BANNER_LIST = "banner/json";
 }
