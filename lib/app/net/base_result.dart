@@ -44,4 +44,10 @@ class BaseListEntity<T> {
       data: mData,
     );
   }
+
+  Map toJson() => {
+        "errorCode": errorCode,
+        "errorMsg": errorMsg,
+        "data": data,
+      };
 }

@@ -42,4 +42,9 @@ class WanAndroidRepository extends BaseRepository {
   Future getBannerList() async {
     return await get(RequestConstApi.BANNER_LIST);
   }
+
+  ///获取首页文章列表
+  Future<dynamic> getArticleList(int page) async {
+    return await get("article/list/$page/json");
+  }
 }
