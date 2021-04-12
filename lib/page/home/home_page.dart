@@ -40,6 +40,7 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
                   ),
                 ),
                 expandedHeight: 200,
+                primary: false,
                 pinned: true,
               )
             ],
