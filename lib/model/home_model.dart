@@ -19,6 +19,8 @@ class HomeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
 
   int pageNum = 0;
 
+
+
   @override
   WanAndroidRepository createRepository() => WanAndroidRepository();
 

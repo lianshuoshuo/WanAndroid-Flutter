@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
 import 'package:flutter_wanandroid/model/home_model.dart';
@@ -23,7 +24,7 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
     "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F04%2F20170604214539_HR5mN.png&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1620895424&t=0da1c1caa41bee2717530c31b0fb18d5"
   ];
 
-  double top = 0;
+  int top = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -58,26 +59,66 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
             easyRefreshController: model.easyRefreshController,
             slivers: [
               SliverAppBar(
-                title: top == 80
-                    ? Row(
-                        children: [
-                          Text("首页"),
-                          Container(
-                            width: 200,
-                            height: 30,
-                            color: Colors.blue,
-                          )
-                        ],
-                      )
-                    : null,
                 flexibleSpace: LayoutBuilder(
                   builder: (context, constraints) {
-                    top = constraints.biggest.height;
+                    top = constraints.biggest.height.toInt();
                     return FlexibleSpaceBar(
-                      title: Text(
-                        top.toString(),
-                        style: TextStyle(color: Colors.blue),
-                      ),
+                      centerTitle: true,
+                      titlePadding: EdgeInsets.all(0),
+                      title: top ==
+                              MediaQuery.of(context).padding.top.toInt() + 56
+                          ? Container(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).padding.top,
+                                  left: 10,
+                                  right: 10),
+                              alignment: Alignment.center,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "首页",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 16),
+                                  ),
+                                  Expanded(
+                                      child: Container(
+                                    margin: EdgeInsets.only(left: 10),
+                                    padding: EdgeInsets.only(left: 10),
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5)),
+                                        color: Colors.black12),
+                                    height: 30,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.search,
+                                          size: 18,
+                                          color: Colors.black26,
+                                        ),
+                                        MediaQuery.removeViewPadding(
+                                            context: context,
+                                            child: Text(
+                                              '搜索更多',
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black26),
+                                            )),
+                                      ],
+                                    ),
+                                  ))
+                                ],
+                              ),
+                            )
+                          : null,
+                      // title: Text(
+                      //   top.toString(),
+                      //   style: TextStyle(color: Colors.black),
+                      // ),
                       background: CustomBanner(
                         model.bannerUrlList,
                       ),

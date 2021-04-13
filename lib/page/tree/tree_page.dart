@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/model/user_model.dart';
 
 class TreePage extends StatefulWidget {
   @override
@@ -11,7 +10,6 @@ class TreePage extends StatefulWidget {
 class TreePageState extends State<TreePage> {
   Matrix4 _matrix4;
   double y = 0;
-
 
   @override
   void initState() {
@@ -43,7 +41,44 @@ class TreePageState extends State<TreePage> {
                   setState(() {
                     y = v;
                   });
-                })
+                }),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.search,
+                  size: 25,
+                  color: Colors.black26,
+                ),
+                // MediaQuery.removeViewPadding(
+                //     context: context,
+                //     child: Text(
+                //       '搜索更多',
+                //       // style: TextStyle(fontSize: 16, color: Colors.black26),
+                //     )),
+                Text(
+                  '搜索更多',
+                  // style: TextStyle(fontSize: 16, color: Colors.black26),
+                )
+              ],
+            ),
+            Center(
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    size: 30,
+                    color: Colors.black26,
+                  ),
+                  MediaQuery.removeViewPadding(
+                      context: context,
+                      child: Text(
+                        '搜索更多',
+                        style: TextStyle(fontSize: 17, color: Colors.black26),
+                      )),
+                ],
+              ),
+            )
           ],
         ),
       ),
