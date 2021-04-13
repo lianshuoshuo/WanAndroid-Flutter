@@ -1,3 +1,4 @@
+import 'package:flutter_wanandroid/entity/article_bean.dart';
 import 'package:flutter_wanandroid/entity/article_entity.dart';
 import 'package:flutter_wanandroid/entity/banner_entity.dart';
 import 'package:flutter_wanandroid/entity/user_entity.dart';
@@ -14,6 +15,8 @@ class EntityFactory {
       return BannerEntity().fromJson(json) as T;
     } else if (T.toString() == "ArticleEntity") {
       return ArticleEntity().fromJson(json) as T;
+    } else if (T.toString() == "ArticleBean") {
+      return ArticleBean.fromJson(json) as T;
     } else {
       return json as T;
     }

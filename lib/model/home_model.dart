@@ -1,9 +1,9 @@
-import 'package:flutter_wanandroid/app/base/base_model.dart';
+import 'package:flutter_wanandroid/app/base/base_refresh_model.dart';
 import 'package:flutter_wanandroid/app/net/request.dart';
-import 'package:flutter_wanandroid/entity/article_entity.dart';
+import 'package:flutter_wanandroid/entity/article_bean.dart';
 import 'package:flutter_wanandroid/entity/banner_entity.dart';
 
-class HomeViewModel extends BaseViewModel<WanAndroidRepository> {
+class HomeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
   List<String> _bannerUrlList;
   List<BannerEntity> _bannerList;
 
@@ -11,9 +11,13 @@ class HomeViewModel extends BaseViewModel<WanAndroidRepository> {
 
   List<BannerEntity> get bannerList => _bannerList;
 
-  List<ArticleEntity> _articleList;
+  ArticleBean _articleBean;
 
-  List<ArticleEntity> get articleList => _articleList;
+  List<ArticleDatas> _articleList = [];
+
+  List<ArticleDatas> get articleList => _articleList;
+
+  int pageNum = 0;
 
   @override
   WanAndroidRepository createRepository() => WanAndroidRepository();
@@ -27,7 +31,18 @@ class HomeViewModel extends BaseViewModel<WanAndroidRepository> {
     });
   }
 
-  Future getArticleList(int page) async {
-    _articleList = await requestListData<ArticleEntity>(mRepository.getArticleList(page));
+  Future<dynamic> getArticleList(bool isRefresh) async {
+    if (isRefresh) {
+      pageNum = 0;
+      _articleBean = await refreshData(
+          requestData<ArticleBean>(mRepository.getArticleList(pageNum)));
+      _articleList.clear();
+      _articleList.addAll(_articleBean.datas);
+    } else {
+      pageNum++;
+      _articleBean = await loadMoreData(
+          requestData<ArticleBean>(mRepository.getArticleList(pageNum)));
+      _articleList.addAll(_articleBean.datas);
+    }
   }
 }

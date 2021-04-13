@@ -35,6 +35,7 @@ class _CustomBannerState extends State<CustomBanner> {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      fit: StackFit.expand,
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         _buildPageView(),

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class CommonListWidget extends StatefulWidget {
   final Function(BuildContext context, int index) _itemWidget;
 
- final dynamic dataList;
+  final dynamic dataList;
 
- final Function(int type) requestList;
+  final Function(int type) requestList;
 
   CommonListWidget(this._itemWidget, this.dataList, this.requestList);
 

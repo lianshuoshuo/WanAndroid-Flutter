@@ -44,7 +44,9 @@ dependencies:
   shared_preferences: 0.5.10
   # 本地json对象存储
   localstorage: ^3.0.2+5
-
+  date_format: ^1.0.8
+  #缓存图片
+  cached_network_image: ^2.3.1
 
 
 dev_dependencies:

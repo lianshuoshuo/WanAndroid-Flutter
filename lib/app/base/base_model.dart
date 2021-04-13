@@ -64,14 +64,7 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
     try {
       if (isShowPageState) setLoading();
       if (isShowLoadDialog) loadingChange.showDialog.notifyListeners();
-      result = await f;
-      var result2 = result['data'];
-      print(result2);
-      var baseListEntity = BaseListEntity<N>.fromJson(BaseListEntity(
-              data: result['data']['datas'],
-              errorCode: result['errorCode'],
-              errorMsg: result['errorMsg'])
-          .toJson());
+      var baseListEntity = BaseListEntity<N>.fromJson(await f);
       if (baseListEntity.errorCode == 0) {
         // 数据请求成功
         setSuccess();

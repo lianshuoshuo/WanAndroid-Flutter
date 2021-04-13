@@ -35,6 +35,7 @@ class MainState extends State<MainPage> {
     return Scaffold(
       body: _pageList[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black45,
