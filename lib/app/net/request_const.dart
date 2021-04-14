@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class RequestConstApi {
   static const SERVICE_API = 'https://www.wanandroid.com/';
 
@@ -12,4 +14,6 @@ class RequestConstApi {
   static const BANNER_LIST = "banner/json";
 
   static const ARTICLE_LIST = "article/list/0/json";
+
+  static const TOP_ARTICLE_LIST = "article/top/json";
 }

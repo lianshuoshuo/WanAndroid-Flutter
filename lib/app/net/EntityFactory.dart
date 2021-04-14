@@ -17,6 +17,8 @@ class EntityFactory {
       return ArticleEntity().fromJson(json) as T;
     } else if (T.toString() == "ArticleBean") {
       return ArticleBean.fromJson(json) as T;
+    } else if (T.toString() == "ArticleDatas") {
+      return ArticleDatas.fromJson(json) as T;
     } else {
       return json as T;
     }

@@ -17,9 +17,11 @@ class HomeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
 
   List<ArticleDatas> get articleList => _articleList;
 
+  List<ArticleDatas> _topArticleList = [];
+
+  List<ArticleDatas> get topArticleList => _topArticleList;
+
   int pageNum = 0;
-
-
 
   @override
   WanAndroidRepository createRepository() => WanAndroidRepository();
@@ -46,5 +48,10 @@ class HomeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
           requestData<ArticleBean>(mRepository.getArticleList(pageNum)));
       _articleList.addAll(_articleBean.datas);
     }
+  }
+
+  Future getTopArticleList() async {
+    _topArticleList =
+        await requestListData<ArticleDatas>(mRepository.getTopArticleList());
   }
 }
