@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 import 'package:flutter_wanandroid/app/config/StorageManager.dart';
 import 'package:flutter_wanandroid/entity/user_entity.dart';
 

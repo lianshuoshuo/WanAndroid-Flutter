@@ -1,19 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/app/router/routers.dart';
+import 'package:flutter_wanandroid/entity/banner_entity.dart';
 
 class CustomBanner extends StatefulWidget {
-  final List<String> _images;
+  final List<BannerEntity> _bannerList;
   final double height;
   final ValueChanged<int> onTap;
   final Curve curve;
 
   CustomBanner(
-    this._images, {
+    this._bannerList, {
     this.height = 200,
     this.onTap,
     this.curve = Curves.linear,
-  }) : assert(_images != null);
+  }) : assert(_bannerList != null);
 
   @override
   _CustomBannerState createState() => _CustomBannerState();
@@ -27,7 +29,7 @@ class _CustomBannerState extends State<CustomBanner> {
   @override
   void initState() {
     super.initState();
-    _curIndex = widget._images.length * 5;
+    _curIndex = widget._bannerList.length * 5;
     _pageController = PageController(initialPage: _curIndex);
     _initTimer();
   }
@@ -45,18 +47,18 @@ class _CustomBannerState extends State<CustomBanner> {
   }
 
   Widget _buildIndicator() {
-    var length = widget._images.length;
+    var length = widget._bannerList.length;
     return Positioned(
       bottom: 10,
       child: Row(
-        children: widget._images.map((s) {
+        children: widget._bannerList.map((s) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 3.0),
             child: ClipOval(
               child: Container(
                 width: 8,
                 height: 8,
-                color: s == widget._images[_curIndex % length]
+                color: s == widget._bannerList[_curIndex % length]
                     ? Colors.white
                     : Colors.grey,
               ),
@@ -68,7 +70,7 @@ class _CustomBannerState extends State<CustomBanner> {
   }
 
   Widget _buildPageView() {
-    var length = widget._images.length;
+    var length = widget._bannerList.length;
     return Container(
       height: widget.height,
       child: PageView.builder(
@@ -88,15 +90,11 @@ class _CustomBannerState extends State<CustomBanner> {
               _cancelTimer();
             },
             onTap: () {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('当前 page 为 ${index % length}'),
-                  duration: Duration(milliseconds: 500),
-                ),
-              );
+              Navigator.of(context).pushNamed(routers.WEB,
+                  arguments: widget._bannerList[index % length].url);
             },
             child: Image.network(
-              widget._images[index % length],
+              widget._bannerList[index % length].imagePath,
               fit: BoxFit.fill,
             ),
           );

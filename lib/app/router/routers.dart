@@ -4,11 +4,13 @@ import 'package:flutter_wanandroid/page/main_page.dart';
 import 'package:flutter_wanandroid/page/mine/collect_page.dart';
 import 'package:flutter_wanandroid/page/mine/login_page.dart';
 import 'package:flutter_wanandroid/page/mine/setting_page.dart';
+import 'package:flutter_wanandroid/page/web_page.dart';
 
 class routers {
   static const String LOGIN = "/login";
   static const String SETTING = "/setting";
   static const String COLLECT = "/collect";
+  static const String WEB = "/web";
 }
 
 ///路由管理
@@ -18,6 +20,7 @@ class MyRouters {
     routers.SETTING: (BuildContext context, {Object args}) => SettingPage(),
     routers.COLLECT: (BuildContext context, {Object args}) => CollectPage(),
     routers.LOGIN: (BuildContext context, {Object args}) => LoginPage(),
+    routers.WEB: (BuildContext context, {Object args}) => WebPage(),
   };
 
   static MyRouters _singleton;

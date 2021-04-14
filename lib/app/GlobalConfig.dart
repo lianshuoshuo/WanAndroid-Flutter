@@ -9,6 +9,12 @@ class GlobalConfig {
 
   static UserModel userModel = new UserModel();
 
- static final GlobalKey<NavigatorState> navigatorKey =
+  static final GlobalKey<NavigatorState> navigatorKey =
       new GlobalKey<NavigatorState>();
+
+  static const String DEFAULT_AVATAR =
+      'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1666256797,972082711&fm=26&gp=0.jpg';
+
+  static const String USER_AVATAR =
+      'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1313854702,2705603849&fm=26&gp=0.jpg';
 }

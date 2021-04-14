@@ -1,3 +1,4 @@
+import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 import 'package:flutter_wanandroid/app/base/base_model.dart';
 import 'package:flutter_wanandroid/app/config/StorageManager.dart';
 import 'package:flutter_wanandroid/app/net/request.dart';
@@ -9,7 +10,7 @@ class LoginViewModel extends BaseViewModel<WanAndroidRepository> {
   UserModel userModel;
 
   LoginViewModel() {
-    userModel = new UserModel();
+    userModel = GlobalConfig.userModel;
   }
 
   Future<dynamic> login(username, password) async {

@@ -120,7 +120,7 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
                       //   style: TextStyle(color: Colors.black),
                       // ),
                       background: CustomBanner(
-                        model.bannerUrlList,
+                        model.bannerList,
                       ),
                     );
                   },
