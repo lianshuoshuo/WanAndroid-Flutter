@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
+import 'package:flutter_wanandroid/model/tree_model.dart';
+import 'package:flutter_wanandroid/widget/view_state_helper.dart';
 
 class TreePage extends StatefulWidget {
   @override
@@ -8,80 +12,55 @@ class TreePage extends StatefulWidget {
 }
 
 class TreePageState extends State<TreePage> {
-  Matrix4 _matrix4;
-  double y = 0;
-
   @override
   void initState() {
-    _matrix4 = Matrix4.identity();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _matrix4 = Matrix4.translationValues(0, y, 0);
-    return Container(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Column(
-          children: [
-            Transform(
-              transform: _matrix4,
-              child: Container(
-                color: Colors.grey,
-                width: 100,
-                height: 100,
-              ),
-            ),
-            Slider(
-                min: -100,
-                max: 100,
-                value: y,
-                onChanged: (v) {
-                  setState(() {
-                    y = v;
-                  });
-                }),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.search,
-                  size: 25,
-                  color: Colors.black26,
-                ),
-                // MediaQuery.removeViewPadding(
-                //     context: context,
-                //     child: Text(
-                //       '搜索更多',
-                //       // style: TextStyle(fontSize: 16, color: Colors.black26),
-                //     )),
-                Text(
-                  '搜索更多',
-                  // style: TextStyle(fontSize: 16, color: Colors.black26),
-                )
-              ],
-            ),
-            Center(
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.search,
-                    size: 30,
-                    color: Colors.black26,
-                  ),
-                  MediaQuery.removeViewPadding(
-                      context: context,
-                      child: Text(
-                        '搜索更多',
-                        style: TextStyle(fontSize: 17, color: Colors.black26),
-                      )),
-                ],
-              ),
-            )
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('体系'),
       ),
+      body: ProviderWidget<TreeViewModel>(
+          initData: (model) {
+            model.getTree();
+          },
+          model: TreeViewModel(),
+          builder: (context, model, child) {
+            if (model.isLoading()) return CommonViewStateHelper(model: model);
+            var treeList = model.treeList;
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                var tree = treeList[index];
+                return Container(
+                  margin: EdgeInsets.only(left: 20,right: 20,top: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        treeList[index].name,
+                        style: TextStyle(fontSize: 17),
+                      ),
+                      Wrap(
+                        spacing: 10,
+                        children: List.generate(tree.children.length, (index) {
+                          return ActionChip(
+                              label: Text(tree.children[index].name,
+                                  style: TextStyle(
+                                      fontSize: 14, color: Color(0xff666666))),
+                              onPressed: () {});
+                        }),
+                      )
+                    ],
+                  ),
+                );
+              },
+              itemCount: treeList.length,
+            );
+          }),
     );
   }
 }

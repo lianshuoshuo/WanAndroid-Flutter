@@ -39,6 +39,7 @@ class WanAndroidRepository extends BaseRepository {
     return await get(RequestConstApi.COLLECT_LIST);
   }
 
+  ///首页banner
   Future getBannerList() async {
     return await get(RequestConstApi.BANNER_LIST);
   }
@@ -51,5 +52,10 @@ class WanAndroidRepository extends BaseRepository {
   ///获取首页置顶文章列表
   Future<dynamic> getTopArticleList() async {
     return await get(RequestConstApi.TOP_ARTICLE_LIST);
+  }
+
+  ///体系
+  Future<dynamic> getTree() async {
+    return await get(RequestConstApi.TREE);
   }
 }
