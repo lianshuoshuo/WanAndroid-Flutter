@@ -16,4 +16,6 @@ class RequestConstApi {
   static const TOP_ARTICLE_LIST = "article/top/json";
 
   static const TREE = "tree/json";
+
+  static const NAVI = "navi/json";
 }

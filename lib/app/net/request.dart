@@ -63,4 +63,8 @@ class WanAndroidRepository extends BaseRepository {
   Future<dynamic> getTree() async {
     return await get(RequestConstApi.TREE);
   }
+  ///导航
+  Future<dynamic> getNavi() async {
+    return await get(RequestConstApi.NAVI);
+  }
 }

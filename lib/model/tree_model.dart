@@ -1,6 +1,7 @@
 import 'package:flutter_wanandroid/app/base/base_refresh_model.dart';
 import 'package:flutter_wanandroid/app/net/request.dart';
 import 'package:flutter_wanandroid/entity/article_bean.dart';
+import 'package:flutter_wanandroid/entity/navi_entity.dart';
 import 'package:flutter_wanandroid/entity/tree_entity.dart';
 
 class TreeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
@@ -15,6 +16,10 @@ class TreeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
 
   List<ArticleDatas> get articleList => _articleList;
 
+  List<NaviEntity> _naviList = [];
+
+  List<NaviEntity> get naviList => _naviList;
+
   @override
   WanAndroidRepository createRepository() {
     return WanAndroidRepository();
@@ -22,6 +27,10 @@ class TreeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
 
   Future<dynamic> getTree() async {
     _treeList = await requestListData<TreeEntity>(mRepository.getTree());
+  }
+
+  Future<dynamic> getNavi() async {
+    _naviList = await requestListData<NaviEntity>(mRepository.getNavi());
   }
 
   Future<dynamic> getArticleList(bool isRefresh, int cid) async {

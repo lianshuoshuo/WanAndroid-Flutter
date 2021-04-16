@@ -22,7 +22,13 @@ class TreePageState extends State<TreePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('体系'),
+        backgroundColor: Colors.white,
+        title: Text(
+          '体系',
+          style: TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        centerTitle: true,
       ),
       body: ProviderWidget<TreeViewModel>(
           initData: (model) {

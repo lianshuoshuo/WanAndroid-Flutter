@@ -1,6 +1,7 @@
 import 'package:flutter_wanandroid/entity/article_bean.dart';
 import 'package:flutter_wanandroid/entity/article_entity.dart';
 import 'package:flutter_wanandroid/entity/banner_entity.dart';
+import 'package:flutter_wanandroid/entity/navi_entity.dart';
 import 'package:flutter_wanandroid/entity/tree_entity.dart';
 import 'package:flutter_wanandroid/entity/user_entity.dart';
 
@@ -20,8 +21,10 @@ class EntityFactory {
       return ArticleBean.fromJson(json) as T;
     } else if (T.toString() == "ArticleDatas") {
       return ArticleDatas.fromJson(json) as T;
-    }else if (T.toString() == "TreeEntity") {
+    } else if (T.toString() == "TreeEntity") {
       return TreeEntity.fromJson(json) as T;
+    } else if (T.toString() == "NaviEntity") {
+      return NaviEntity.fromJson(json) as T;
     } else {
       return json as T;
     }

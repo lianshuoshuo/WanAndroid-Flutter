@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/app/GlobalConfig.dart';
+import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
+import 'package:flutter_wanandroid/entity/article_bean.dart';
+import 'package:flutter_wanandroid/model/tree_model.dart';
 
 class NavigatePage extends StatefulWidget {
   @override
@@ -8,43 +13,88 @@ class NavigatePage extends StatefulWidget {
 }
 
 class NavigatePageState extends State<NavigatePage> {
-  ValueNotifier<int> test;
-
-  @override
-  void initState() {
-    test = ValueNotifier(0);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ValueListenableBuilder(
-        valueListenable: test,
-        builder: (_, value, child) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("数字${test.value}"), child],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          '导航',
+          style: TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        centerTitle: true,
+      ),
+      body: ProviderWidget<TreeViewModel>(
+        initData: (model) {
+          model.getNavi();
+        },
+        model: TreeViewModel(),
+        builder: (BuildContext context, model, Widget child) {
+          return Container(
+            color: Color(0xffe8e8e8),
+            padding: EdgeInsets.only(left: 10, right: 10, top: 0),
+            child: ListView.builder(
+              itemCount: model.naviList.length,
+              itemBuilder: (_, index) {
+                var naviList = model.naviList[index];
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 10, top: 10, left: 10),
+                      child: Text(
+                        naviList.name,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    Container(
+                      child: GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: naviList.articles.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                  childAspectRatio: 1 / 0.618),
+                          itemBuilder: (_, index) {
+                            return _buildItem(naviList.articles[index]);
+                          }),
+                    )
+                  ],
+                );
+              },
             ),
           );
         },
-        child:buildChild(),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            test.value++;
-          },
-          child: Text('天')),
     );
   }
 
-  Widget buildChild() {
-    print("buildChild");
-    return Container(
-      width: 100,
-      height: 200,
-      color: Colors.blue,
+  Widget _buildItem(ArticleDatas _data) {
+    return GridTile(
+      header: GridTileBar(
+        backgroundColor: Colors.blue,
+        trailing: Icon(
+          Icons.favorite_border,
+          size: 20,
+        ),
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(GlobalConfig.USER_AVATAR),
+        ),
+        title: Text(_data.title),
+        subtitle: Text('${_data.author ?? _data.shareUser}'),
+      ),
+      child: Container(
+        color: Colors.white,
+      ),
+      footer: Padding(
+        padding: EdgeInsets.all(5),
+        child: Text('${_data.chapterName}'),
+      ),
     );
   }
 }
