@@ -38,7 +38,6 @@ class HomeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
   Future<dynamic> getArticleList(bool isRefresh) async {
     if (isRefresh) {
       pageNum = 0;
-      Future.delayed(Duration(milliseconds: 1000));
       _articleBean = await refreshData(
           requestData<ArticleBean>(mRepository.getArticleList(pageNum)));
       _articleList.clear();

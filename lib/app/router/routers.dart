@@ -4,6 +4,7 @@ import 'package:flutter_wanandroid/page/main_page.dart';
 import 'package:flutter_wanandroid/page/mine/collect_page.dart';
 import 'package:flutter_wanandroid/page/mine/login_page.dart';
 import 'package:flutter_wanandroid/page/mine/setting_page.dart';
+import 'package:flutter_wanandroid/page/tree/tab_page.dart';
 import 'package:flutter_wanandroid/page/web_page.dart';
 
 class routers {
@@ -11,6 +12,7 @@ class routers {
   static const String SETTING = "/setting";
   static const String COLLECT = "/collect";
   static const String WEB = "/web";
+  static const String TREE_TAB = "/TreeTabPage";
 }
 
 ///路由管理
@@ -21,6 +23,7 @@ class MyRouters {
     routers.COLLECT: (BuildContext context, {Object args}) => CollectPage(),
     routers.LOGIN: (BuildContext context, {Object args}) => LoginPage(),
     routers.WEB: (BuildContext context, {Object args}) => WebPage(),
+    routers.TREE_TAB: (BuildContext context, {Object args}) => TreeTabPage(),
   };
 
   static MyRouters _singleton;

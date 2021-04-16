@@ -49,6 +49,11 @@ class WanAndroidRepository extends BaseRepository {
     return await get("article/list/$page/json");
   }
 
+  ///根据类型
+  Future<dynamic> getTreeArticleList(int page, int cid) async {
+    return await get("article/list/$page/json?cid$cid");
+  }
+
   ///获取首页置顶文章列表
   Future<dynamic> getTopArticleList() async {
     return await get(RequestConstApi.TOP_ARTICLE_LIST);

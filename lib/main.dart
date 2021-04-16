@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wanandroid/app/GlobalConfig.dart';
+import 'package:provider/provider.dart';
 
 import 'app/config/StorageManager.dart';
 import 'app/router/routers.dart';
@@ -12,12 +13,15 @@ final MyRouters _myRouters = new MyRouters();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //初始化
   await StorageManager.init();
+
   ///沉浸
-  if(Platform.isAndroid) {
+  if (Platform.isAndroid) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   }
-  runApp(MyApp());
+  runApp(MultiProvider(
+      providers: [ChangeNotifierProvider.value(value: GlobalConfig.userModel)],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

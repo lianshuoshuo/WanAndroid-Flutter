@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
+import 'package:flutter_wanandroid/app/router/routers.dart';
 import 'package:flutter_wanandroid/model/tree_model.dart';
 import 'package:flutter_wanandroid/widget/view_state_helper.dart';
 
@@ -35,7 +36,7 @@ class TreePageState extends State<TreePage> {
               itemBuilder: (context, index) {
                 var tree = treeList[index];
                 return Container(
-                  margin: EdgeInsets.only(left: 20,right: 20,top: 20),
+                  margin: EdgeInsets.only(left: 20, right: 20, top: 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +52,11 @@ class TreePageState extends State<TreePage> {
                               label: Text(tree.children[index].name,
                                   style: TextStyle(
                                       fontSize: 14, color: Color(0xff666666))),
-                              onPressed: () {});
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(
+                                    routers.TREE_TAB,
+                                    arguments: tree);
+                              });
                         }),
                       )
                     ],
