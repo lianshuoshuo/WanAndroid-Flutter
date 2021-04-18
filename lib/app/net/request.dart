@@ -51,7 +51,7 @@ class WanAndroidRepository extends BaseRepository {
 
   ///根据类型
   Future<dynamic> getTreeArticleList(int page, int cid) async {
-    return await get("article/list/$page/json?cid$cid");
+    return await get("article/list/$page/json?cid=$cid");
   }
 
   ///获取首页置顶文章列表
@@ -63,8 +63,19 @@ class WanAndroidRepository extends BaseRepository {
   Future<dynamic> getTree() async {
     return await get(RequestConstApi.TREE);
   }
+
+  ///项目体系
+  Future<dynamic> getProjectTree() async {
+    return await get(RequestConstApi.PROJECT_TREE);
+  }
+
   ///导航
   Future<dynamic> getNavi() async {
     return await get(RequestConstApi.NAVI);
+  }
+
+  ///项目体系
+  Future<dynamic> getProjectTreeList(int page, int cid) async {
+    return await get("project/list/$page/json?cid=$cid");
   }
 }

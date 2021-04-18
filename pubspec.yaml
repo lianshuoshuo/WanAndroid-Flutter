@@ -51,6 +51,12 @@ dependencies:
   webview_flutter: ^2.0.4
   # 谁用谁闪亮
   shimmer: ^1.1.1
+  # 加载动画
+  loading_indicator_view: ^1.1.0
+  #自适应大小text
+  auto_size_text: ^2.1.0
+
+
 
 dev_dependencies:
   flutter_test:

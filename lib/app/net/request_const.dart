@@ -18,4 +18,6 @@ class RequestConstApi {
   static const TREE = "tree/json";
 
   static const NAVI = "navi/json";
+
+  static const PROJECT_TREE = "project/tree/json";
 }

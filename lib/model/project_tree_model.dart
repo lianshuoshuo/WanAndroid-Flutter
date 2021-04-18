@@ -1,14 +1,12 @@
 import 'package:flutter_wanandroid/app/base/base_refresh_model.dart';
 import 'package:flutter_wanandroid/app/net/request.dart';
 import 'package:flutter_wanandroid/entity/article_bean.dart';
-import 'package:flutter_wanandroid/entity/navi_entity.dart';
 import 'package:flutter_wanandroid/entity/tree_entity.dart';
 
-class TreeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
-  List<TreeEntity> _treeList;
+class ProjectTreeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
+  List<TreeEntity> _projectTreeList;
 
-  List<TreeEntity> get treeList => _treeList;
-  int pageNum = 0;
+  List<TreeEntity> get treeList => _projectTreeList;
 
   ArticleBean _articleBean;
 
@@ -16,9 +14,7 @@ class TreeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
 
   List<ArticleDatas> get articleList => _articleList;
 
-  List<NaviEntity> _naviList = [];
-
-  List<NaviEntity> get naviList => _naviList;
+  int pageNum = 0;
 
   @override
   WanAndroidRepository createRepository() {
@@ -26,25 +22,22 @@ class TreeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
   }
 
   Future<dynamic> getTree() async {
-    _treeList = await requestListData<TreeEntity>(mRepository.getTree());
+    _projectTreeList =
+        await requestListData<TreeEntity>(mRepository.getProjectTree());
   }
 
-  Future<dynamic> getNavi() async {
-    _naviList = await requestListData<NaviEntity>(mRepository.getNavi());
-  }
-
-  Future<dynamic> getArticleList(bool isRefresh, int cid) async {
+  Future<dynamic> getProjectTreeList(bool isRefresh, int cid) async {
     if (isRefresh) {
-      pageNum = 0;
+      pageNum = 1;
       _articleBean = await refreshData(requestData<ArticleBean>(
-          mRepository.getTreeArticleList(pageNum, cid)));
+          mRepository.getProjectTreeList(pageNum, cid)));
       _articleList.clear();
       _articleList.addAll(_articleBean.datas);
       if (_articleList.isEmpty) setEmpty();
     } else {
       pageNum++;
       _articleBean = await loadMoreData(requestData<ArticleBean>(
-          mRepository.getTreeArticleList(pageNum, cid)));
+          mRepository.getProjectTreeList(pageNum, cid)));
       if (_articleBean.datas.isEmpty) {
         pageNum--;
         return;

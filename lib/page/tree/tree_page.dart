@@ -4,6 +4,7 @@ import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
 import 'package:flutter_wanandroid/app/router/routers.dart';
 import 'package:flutter_wanandroid/model/tree_model.dart';
 import 'package:flutter_wanandroid/widget/view_state_helper.dart';
+import 'package:loading_indicator_view/loading_indicator_view.dart';
 
 class TreePage extends StatefulWidget {
   @override
@@ -36,7 +37,9 @@ class TreePageState extends State<TreePage> {
           },
           model: TreeViewModel(),
           builder: (context, model, child) {
-            if (model.isLoading()) return CommonViewStateHelper(model: model);
+            if (model.isLoading()) return Center(
+              child: BallPulseRiseIndicator(color: Colors.lightBlue,),
+            );
             var treeList = model.treeList;
             return ListView.builder(
               itemBuilder: (context, index) {

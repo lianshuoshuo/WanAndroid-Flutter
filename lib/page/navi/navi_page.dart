@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
+import 'package:flutter_wanandroid/app/router/routers.dart';
 import 'package:flutter_wanandroid/entity/article_bean.dart';
 import 'package:flutter_wanandroid/model/tree_model.dart';
+import 'package:loading_indicator_view/loading_indicator_view.dart';
 
 class NavigatePage extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class NavigatePageState extends State<NavigatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
         title: Text(
           '导航',
@@ -31,6 +33,12 @@ class NavigatePageState extends State<NavigatePage> {
         },
         model: TreeViewModel(),
         builder: (BuildContext context, model, Widget child) {
+          if (model.isLoading())
+            return Center(
+              child: LineScaleIndicator(
+                lineColor: Colors.lightBlue,
+              ),
+            );
           return Container(
             color: Color(0xffe8e8e8),
             padding: EdgeInsets.only(left: 10, right: 10, top: 0),
@@ -75,25 +83,32 @@ class NavigatePageState extends State<NavigatePage> {
   }
 
   Widget _buildItem(ArticleDatas _data) {
-    return GridTile(
-      header: GridTileBar(
-        backgroundColor: Colors.blue,
-        trailing: Icon(
-          Icons.favorite_border,
-          size: 20,
+    return Ink(
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(routers.WEB, arguments: _data.link);
+        },
+        child: GridTile(
+          header: GridTileBar(
+            backgroundColor: Colors.blue,
+            trailing: Icon(
+              Icons.favorite_border,
+              size: 20,
+            ),
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(GlobalConfig.USER_AVATAR),
+            ),
+            title: Text(_data.title),
+            subtitle: Text('${_data.author ?? _data.shareUser}'),
+          ),
+          child: Container(
+            color: Colors.white,
+          ),
+          footer: Padding(
+            padding: EdgeInsets.all(5),
+            child: Text('${_data.chapterName}'),
+          ),
         ),
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(GlobalConfig.USER_AVATAR),
-        ),
-        title: Text(_data.title),
-        subtitle: Text('${_data.author ?? _data.shareUser}'),
-      ),
-      child: Container(
-        color: Colors.white,
-      ),
-      footer: Padding(
-        padding: EdgeInsets.all(5),
-        child: Text('${_data.chapterName}'),
       ),
     );
   }
