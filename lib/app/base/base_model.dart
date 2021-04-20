@@ -12,7 +12,7 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
   bool disposed = false;
 
   /// 初始化状态为加载中
-  ViewState _state = ViewState.loading;
+  ViewState _state = ViewState.Idle;
 
   ViewState get state => _state;
 
@@ -27,13 +27,14 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
   var loadingChange = LoadingProvider();
 
   BaseViewModel({ViewState state}) {
-    this._state = state ?? ViewState.loading;
+    this._state = state ?? ViewState.Idle;
     mRepository = createRepository();
   }
 
   ///请求结果过滤
   Future<dynamic> requestData<N>(dynamic f,
       {bool isShowPageState = false, bool isShowLoadDialog = false}) async {
+    _state = ViewState.loading;
     var result;
     try {
       if (isShowPageState) setLoading();
@@ -60,6 +61,7 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
 
   Future<dynamic> requestListData<N>(dynamic f,
       {bool isShowPageState = false, bool isShowLoadDialog = false}) async {
+    _state = ViewState.loading;
     var result;
     try {
       if (isShowPageState) setLoading();
@@ -161,6 +163,10 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
 
   bool isNoNetWork() {
     return this._state == ViewState.noNetwork;
+  }
+
+  bool isIdle() {
+    return this._state == ViewState.Idle;
   }
 
   /// 是否是成功显示数据状态

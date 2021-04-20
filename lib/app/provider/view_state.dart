@@ -14,6 +14,9 @@ enum ViewState {
 
   ///no net
   noNetwork,
+
+  ///闲置
+  Idle,
 }
 
 class ViewStateError {

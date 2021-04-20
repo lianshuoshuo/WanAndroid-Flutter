@@ -78,4 +78,13 @@ class WanAndroidRepository extends BaseRepository {
   Future<dynamic> getProjectTreeList(int page, int cid) async {
     return await get("project/list/$page/json?cid=$cid");
   }
+
+  ///站内收藏
+  Future collect(int id) async {
+    return await post("lg/collect/$id/json", null);
+  }
+  ///取消收藏
+  Future unCollect(int id) async {
+    return await post("lg/uncollect_originId/$id/json", null);
+  }
 }
