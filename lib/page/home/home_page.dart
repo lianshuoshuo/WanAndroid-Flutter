@@ -22,11 +22,6 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
-  List<String> banner = [
-    "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3286061922,1160551693&fm=26&gp=0.jpg",
-    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F04%2F20170604214539_HR5mN.png&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1620895424&t=0da1c1caa41bee2717530c31b0fb18d5"
-  ];
-
   int top = 0;
 
   @override

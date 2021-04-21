@@ -46,13 +46,13 @@ class MinePageState extends State<MinePage> {
     return Scaffold(
       backgroundColor: Color(0xfff8f8f8),
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
         title: Text(
           '我',
           style: TextStyle(
               color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
         ),
-        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -125,7 +125,9 @@ class MinePageState extends State<MinePage> {
                   return Ink(
                     color: Colors.white,
                     child: ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        click(context,itemList1[index].url);
+                      },
                       title: Text(
                         itemList1[index].title,
                         style: TextStyle(fontSize: 15),
@@ -141,5 +143,13 @@ class MinePageState extends State<MinePage> {
         ],
       ),
     );
+  }
+
+  void click(BuildContext context,String url) {
+    switch (url) {
+      case "fl://setting":
+        Navigator.of(context).pushNamed(routers.SETTING);
+        break;
+    }
   }
 }

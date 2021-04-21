@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
 import 'package:flutter_wanandroid/app/router/routers.dart';
 import 'package:flutter_wanandroid/entity/article_bean.dart';
 import 'package:flutter_wanandroid/model/collect_model.dart';
 import 'package:flutter_wanandroid/widget/image.dart';
 import 'package:like_button/like_button.dart';
-
+///文章item
 class ArticleItem extends StatelessWidget {
   final ArticleDatas _articleDatas;
   final int index;
@@ -109,7 +110,7 @@ class ArticleItem extends StatelessWidget {
                                 likeBuilder: (isCollect) {
                                   return Icon(
                                     Icons.favorite_border,
-                                    color: _articleDatas.collect
+                                    color: GlobalConfig.userModel.hasUser&&_articleDatas.collect
                                         ? Colors.red
                                         : Colors.grey,
                                     size: 20,
