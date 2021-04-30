@@ -73,6 +73,7 @@ class _SettingPageState extends State<SettingPage> {
                   child: Text("确定"),
                   onPressed: () {
                     Navigator.pop(context, "ok");
+                    Navigator.pop(mContext, "ok");
                     model.logout().then((value) {});
                   }),
             ],

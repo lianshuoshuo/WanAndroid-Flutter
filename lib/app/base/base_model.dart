@@ -45,7 +45,7 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
         setSuccess();
         result = baseEntity.data;
       } else {
-        throw result;
+        throw baseEntity;
       }
     } catch (e) {
       if (isShowPageState) setError(Error(), message: "请求失败");
@@ -72,7 +72,7 @@ abstract class BaseViewModel<T extends BaseRepository> extends ChangeNotifier {
         setSuccess();
         result = baseListEntity.data;
       } else {
-        throw result;
+        throw baseListEntity;
       }
     } catch (e) {
       if (isShowPageState) setError(Error(), message: "请求失败");
