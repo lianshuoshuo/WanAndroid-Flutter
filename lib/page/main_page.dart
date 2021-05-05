@@ -5,6 +5,8 @@ import 'package:flutter_wanandroid/page/navi/navi_page.dart';
 import 'package:flutter_wanandroid/page/project/project_page.dart';
 import 'package:flutter_wanandroid/page/tree/tree_page.dart';
 
+import 'navi/find_page.dart';
+
 ///主界面
 class MainPage extends StatefulWidget {
   @override
@@ -17,7 +19,7 @@ class MainState extends State<MainPage> {
   final List<Widget> _pageList = [
     HomePage(),
     TreePage(),
-    NavigatePage(),
+    FindPage(),
     ProjectPage(),
     MinePage(),
   ];
@@ -25,7 +27,7 @@ class MainState extends State<MainPage> {
   final List<BottomNavigationBarItem> _bottomItemList = [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
     BottomNavigationBarItem(icon: Icon(Icons.account_tree), label: '体系'),
-    BottomNavigationBarItem(icon: Icon(Icons.alt_route), label: '导航'),
+    BottomNavigationBarItem(icon: Icon(Icons.alt_route), label: '发现'),
     BottomNavigationBarItem(icon: Icon(Icons.description), label: '项目'),
     BottomNavigationBarItem(icon: Icon(Icons.person), label: '我的'),
   ];

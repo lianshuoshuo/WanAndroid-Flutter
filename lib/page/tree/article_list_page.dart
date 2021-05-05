@@ -7,10 +7,12 @@ import 'package:flutter_wanandroid/widget/custom_refresh_widget.dart';
 import 'package:flutter_wanandroid/widget/skeleton.dart';
 import 'package:flutter_wanandroid/widget/view_state_helper.dart';
 
+///体系文章列表
 class ArticleListPage extends StatefulWidget {
   final int cid;
+  final int pageType;
 
-  ArticleListPage(this.cid);
+  ArticleListPage(this.cid, this.pageType);
 
   @override
   _ArticleListPageState createState() => _ArticleListPageState();
@@ -26,7 +28,7 @@ class _ArticleListPageState extends State<ArticleListPage>
     super.build(context);
     return ProviderWidget<TreeViewModel>(
         initData: (model) {
-          model.getArticleList(true, widget.cid);
+          model.getArticleList(true, widget.cid,isTreeTab: widget.pageType==0);
         },
         model: TreeViewModel(),
         builder: (context, model, child) {
@@ -38,7 +40,7 @@ class _ArticleListPageState extends State<ArticleListPage>
             return CommonViewStateHelper(
               model: model,
               onErrorPressed: () {
-                model.getArticleList(true, widget.cid);
+                model.getArticleList(true, widget.cid,isTreeTab: widget.pageType==0);
               },
             );
           } else if (model.isEmpty() && model.articleList.isEmpty) {
@@ -46,7 +48,7 @@ class _ArticleListPageState extends State<ArticleListPage>
                 model: model,
                 onEmptyPressed: () {
                   model.setLoading();
-                  model.getArticleList(true, widget.cid);
+                  model.getArticleList(true, widget.cid,isTreeTab: widget.pageType==0);
                 });
           }
 
@@ -55,17 +57,28 @@ class _ArticleListPageState extends State<ArticleListPage>
             enableRefresh: true,
             enableLoad: true,
             onRefresh: () {
-              return model.getArticleList(true, widget.cid);
+              return model.getArticleList(true, widget.cid,isTreeTab: widget.pageType==0);
             },
             onLoadMore: () {
-              return model.getArticleList(false, widget.cid);
+              return model.getArticleList(false, widget.cid,isTreeTab: widget.pageType==0);
             },
             easyRefreshController: model.easyRefreshController,
             slivers: [
-              SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                return ArticleItem(articleList[index], index);
-              }, childCount: articleList?.length ?? 0))
+              SliverToBoxAdapter(
+                  child: ListView.separated(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) {
+                        return Divider(
+                          height: 10,
+                          thickness: 0,
+                          color: Colors.transparent,
+                        );
+                      },
+                      itemBuilder: (context, index) {
+                        return ArticleItem(articleList[index], index);
+                      },
+                      itemCount: articleList?.length ?? 0))
             ],
           );
         });

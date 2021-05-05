@@ -17,16 +17,6 @@ class NavigatePageState extends State<NavigatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Text(
-          '导航',
-          style: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        centerTitle: true,
-      ),
       body: ProviderWidget<TreeViewModel>(
         initData: (model) {
           model.getNavi();
@@ -40,7 +30,6 @@ class NavigatePageState extends State<NavigatePage> {
               ),
             );
           return Container(
-            color: Color(0xffe8e8e8),
             padding: EdgeInsets.only(left: 10, right: 10, top: 0),
             child: ListView.builder(
               itemCount: model.naviList.length,
@@ -57,21 +46,35 @@ class NavigatePageState extends State<NavigatePage> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-                    Container(
-                      child: GridView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: naviList.articles.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10,
-                                  childAspectRatio: 1 / 0.618),
-                          itemBuilder: (_, index) {
-                            return _buildItem(naviList.articles[index]);
-                          }),
+                    Wrap(
+                      spacing: 10,
+                      children:
+                          List.generate(naviList.articles.length, (index) {
+                        return ActionChip(
+                            label: Text(naviList.articles[index].title,
+                                style: TextStyle(
+                                    fontSize: 14, color: Color(0xff666666))),
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(routers.WEB,
+                                  arguments: naviList.articles[index].link);
+                            });
+                      }),
                     )
+                    // Container(
+                    //   child: GridView.builder(
+                    //       physics: NeverScrollableScrollPhysics(),
+                    //       shrinkWrap: true,
+                    //       itemCount: naviList.articles.length,
+                    //       gridDelegate:
+                    //           SliverGridDelegateWithFixedCrossAxisCount(
+                    //               crossAxisCount: 2,
+                    //               mainAxisSpacing: 10,
+                    //               crossAxisSpacing: 10,
+                    //               childAspectRatio: 1 / 0.618),
+                    //       itemBuilder: (_, index) {
+                    //         return _buildItem(naviList.articles[index]);
+                    //       }),
+                    // )
                   ],
                 );
               },

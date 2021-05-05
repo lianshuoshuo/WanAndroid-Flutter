@@ -20,4 +20,9 @@ class RequestConstApi {
   static const NAVI = "navi/json";
 
   static const PROJECT_TREE = "project/tree/json";
+
+  static const COIN_USER_INFO = "lg/coin/userinfo/json";
+
+  static const WX_THE_PUBLIC = "wxarticle/chapters/json";
+
 }

@@ -3,6 +3,7 @@ import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 import 'package:flutter_wanandroid/app/router/routers.dart';
 import 'package:flutter_wanandroid/entity/mine_item.dart';
 import 'package:flutter_wanandroid/model/user_model.dart';
+import 'package:flutter_wanandroid/widget/app_bar_white.dart';
 import 'package:provider/provider.dart';
 
 class MinePage extends StatefulWidget {
@@ -17,7 +18,7 @@ class MinePageState extends State<MinePage> {
     MainItemViewBean(
         title: '我的积分',
         img: Icons.monetization_on,
-        url: 'fl://jifen',
+        url: 'fl://coin',
         iconTextColors: 0xfffdb933),
     MainItemViewBean(
         title: '我的收藏',
@@ -45,15 +46,7 @@ class MinePageState extends State<MinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff8f8f8),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Text(
-          '我',
-          style: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-      ),
+      appBar: appBarWhite('我'),
       body: Column(
         children: [
           Consumer<UserModel>(builder: (context, model, child) {
@@ -65,7 +58,7 @@ class MinePageState extends State<MinePage> {
                 child: InkWell(
                   onTap: () {
                     if (model.hasUser) {
-                      // Navigator.of(context).pushNamed(routers.LOGIN);
+                      Navigator.of(context).pushNamed(routers.MINE_INFO_PAGE);
                     } else {
                       Navigator.of(context).pushNamed(routers.LOGIN);
                     }
@@ -126,7 +119,7 @@ class MinePageState extends State<MinePage> {
                     color: Colors.white,
                     child: ListTile(
                       onTap: () {
-                        click(context,itemList1[index].url);
+                        click(context, itemList1[index].url);
                       },
                       title: Text(
                         itemList1[index].title,
@@ -145,10 +138,19 @@ class MinePageState extends State<MinePage> {
     );
   }
 
-  void click(BuildContext context,String url) {
+  void click(BuildContext context, String url) {
     switch (url) {
       case "fl://setting":
         Navigator.of(context).pushNamed(routers.SETTING);
+        break;
+      case "fl://collect":
+        Navigator.of(context).pushNamed(routers.COLLECT);
+        break;
+      case "fl://coin":
+        Navigator.of(context).pushNamed(routers.MY_COIN);
+        break;
+      case "fl://works":
+        Navigator.of(context).pushNamed(routers.MY_ARTICLE);
         break;
     }
   }

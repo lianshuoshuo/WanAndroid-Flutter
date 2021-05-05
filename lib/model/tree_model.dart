@@ -33,18 +33,21 @@ class TreeViewModel extends BaseRefreshViewModel<WanAndroidRepository> {
     _naviList = await requestListData<NaviEntity>(mRepository.getNavi());
   }
 
-  Future<dynamic> getArticleList(bool isRefresh, int cid) async {
+  Future<dynamic> getArticleList(bool isRefresh, int cid,
+      {bool isTreeTab = true}) async {
     if (isRefresh) {
       pageNum = 0;
-      _articleBean = await refreshData(requestData<ArticleBean>(
-          mRepository.getTreeArticleList(pageNum, cid)));
+      _articleBean = await refreshData(requestData<ArticleBean>(isTreeTab
+          ? mRepository.getTreeArticleList(pageNum, cid)
+          : mRepository.getWxArticleList(pageNum, cid)));
       _articleList.clear();
       _articleList.addAll(_articleBean.datas);
       if (_articleList.isEmpty) setEmpty();
     } else {
       pageNum++;
-      _articleBean = await loadMoreData(requestData<ArticleBean>(
-          mRepository.getTreeArticleList(pageNum, cid)));
+      _articleBean = await loadMoreData(requestData<ArticleBean>(isTreeTab
+          ? mRepository.getTreeArticleList(pageNum, cid)
+          : mRepository.getWxArticleList(pageNum, cid)));
       if (_articleBean.datas.isEmpty) {
         pageNum--;
         return;

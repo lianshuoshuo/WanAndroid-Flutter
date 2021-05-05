@@ -80,6 +80,10 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
                 ),
               ),
               HomeTopArticleList(),
+              SliverToBoxAdapter(
+                  child: Container(
+                height: 10,
+              )),
               HomeArticleList(),
             ],
           );
@@ -185,9 +189,23 @@ class HomeArticleList extends StatelessWidget {
         ),
       );
     var dates = homeViewModel.articleList;
-    return SliverList(
-        delegate: SliverChildBuilderDelegate((context, index) {
-      return ArticleItem(dates[index], index);
-    }, childCount: dates?.length ?? 0));
+    return SliverToBoxAdapter(
+        child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: ListView.separated(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    height: 10,
+                    thickness: 0,
+                    color: Colors.transparent,
+                  );
+                },
+                itemBuilder: (context, index) {
+                  return ArticleItem(dates[index], index);
+                },
+                itemCount: dates?.length ?? 0)));
   }
 }

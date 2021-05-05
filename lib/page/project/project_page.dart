@@ -45,8 +45,8 @@ class ProjectPageState extends State<ProjectPage> {
           builder: (_, model, chlid) {
             if (model.isLoading())
               return Center(
-                child: BallPulseRiseIndicator(
-                  color: Colors.lightBlue,
+                child: LineScaleIndicator(
+                  lineColor: Colors.lightBlue,
                 ),
               );
             return Container(

@@ -35,8 +35,8 @@ class WanAndroidRepository extends BaseRepository {
     return await get(RequestConstApi.LOGOUT);
   }
 
-  Future<dynamic> getCollectList() async {
-    return await get(RequestConstApi.COLLECT_LIST);
+  Future<dynamic> getCollectList(int page) async {
+    return await get('lg/collect/list/$page/json');
   }
 
   ///首页banner
@@ -83,8 +83,56 @@ class WanAndroidRepository extends BaseRepository {
   Future collect(int id) async {
     return await post("lg/collect/$id/json", null);
   }
+
   ///取消收藏
   Future unCollect(int id) async {
     return await post("lg/uncollect_originId/$id/json", null);
+  }
+
+  ///取消收藏
+  Future unCollectMy(int id, int originId) async {
+    var map = Map<String, dynamic>();
+    map['originId'] = originId;
+    return await post("lg/uncollect/$id/json", map);
+  }
+
+  ///个人积分获得列表
+  Future myCoinList(int page) async {
+    return await get("lg/coin/list/$page/json");
+  }
+
+  ///个人积分获得列表
+  Future coinRink(int page) async {
+    return await get("coin/rank/$page/json");
+  }
+
+  ///个人积分信息
+  Future coinUserInfo() async {
+    return await get(RequestConstApi.COIN_USER_INFO);
+  }
+
+  ///微信公众号
+  Future getWxOfficialAccount() async {
+    return await get(RequestConstApi.WX_THE_PUBLIC);
+  }
+
+  ///获取公众号下的文章
+  Future<dynamic> getWxArticleList(int page, int cid) async {
+    return await get("wxarticle/list/$cid/$page/json");
+  }
+
+  ///获取广场列表
+  Future getSquareList(int page) async {
+    return await get('user_article/list/$page/json');
+  }
+
+  ///获取问答列表
+  Future getWendaList(int page) async {
+    return await get('wenda/list/$page/json ');
+  }
+
+  ///自己的分享的文章列表
+  Future getUserArticle(int page) async {
+    return await get("user/lg/private_articles/$page/json");
   }
 }

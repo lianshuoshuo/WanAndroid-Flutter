@@ -29,14 +29,21 @@ class _WebPageState extends State<WebPage> {
     print(this.toString() + ":$mUrl");
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
+        backgroundColor: Colors.white,
         title: ValueListenableBuilder(
             valueListenable: mTitle,
             builder: (context, value, child) {
               return Text(
                 value.toString(),
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
               );
             }),
+        centerTitle: true,
       ),
       body: Stack(
         children: [
