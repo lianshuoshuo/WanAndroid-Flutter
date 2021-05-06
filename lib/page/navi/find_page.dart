@@ -45,7 +45,9 @@ class _FindPageState extends State<FindPage> {
             onLoadMore: () async {
               model.getSquareList(false);
             },
-            slivers: [_wxList(model), _wendaList(model), _squareList(model)],
+            slivers: [_wxList(model), _wendaList(model), SliverToBoxAdapter(
+              child: Container(height: 10,color: Color(0xffe8e8e8),),
+            ),_squareList(model)],
             easyRefreshController: model.easyRefreshController,
           );
         },
@@ -93,12 +95,12 @@ class _FindPageState extends State<FindPage> {
                           ClipOval(
                             child: WrapperImage(
                               imageType: ImageType.random,
-                              url: wxAccountList[index].name,
+                              url: wxItem.name,
                               height: 45,
                               width: 45,
                             ),
                           ),
-                          Text(wxAccountList[index].name)
+                          Text(wxItem.name)
                               .setMargin(EdgeInsets.only(top: 5))
                         ],
                       ),
@@ -118,7 +120,6 @@ class _FindPageState extends State<FindPage> {
   Widget _squareList(WxAccountViewModel model) {
     return SliverToBoxAdapter(
       child: Container(
-        margin: EdgeInsets.only(top: 10),
         child: Column(
           children: [
             Container(
@@ -127,8 +128,9 @@ class _FindPageState extends State<FindPage> {
               color: Colors.white,
               child: Text('广场', style: _titleStyle),
             ),
-            SizedBox(
+            Container(
               height: 1,
+              color: Color(0xffe8e8e8),
             ),
             Builder(builder: (context) {
               if (model.isLoading())
@@ -162,10 +164,10 @@ class _FindPageState extends State<FindPage> {
   Widget _wendaList(WxAccountViewModel model) {
     return SliverToBoxAdapter(
       child: Container(
+        margin: EdgeInsets.only(top: 10,),
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 10),
               width: double.infinity,
               color: Colors.white,
               child: Text('每日问答', style: _titleStyle),

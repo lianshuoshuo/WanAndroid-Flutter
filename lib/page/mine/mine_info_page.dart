@@ -16,13 +16,11 @@ class MineInfoPage extends StatefulWidget {
 class _MineInfoPageState extends State<MineInfoPage> {
   ScrollController _scrollController;
 
-  bool lastStatus = false;
+  ValueNotifier<bool> appbarStatus;
 
   _scrollListener() {
-    if (isShrink != lastStatus) {
-      setState(() {
-        lastStatus = isShrink;
-      });
+    if (isShrink != appbarStatus.value) {
+      appbarStatus.value = isShrink;
     }
   }
 
@@ -35,6 +33,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
   void initState() {
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
+    appbarStatus = ValueNotifier(false);
     super.initState();
   }
 
@@ -66,14 +65,28 @@ class _MineInfoPageState extends State<MineInfoPage> {
   Widget _buildHeader(model) {
     return SliverAppBar(
       elevation: 0,
-      leading: BackButton(
-        color: lastStatus ? Colors.black : Colors.white,
+      leading: ValueListenableBuilder(
+        valueListenable: appbarStatus,
+        builder: (context, value, child) {
+          return BackButton(
+            color: value ? Colors.black : Colors.white,
+          );
+        },
       ),
       backgroundColor: Colors.white,
       expandedHeight: 200,
       floating: false,
       pinned: true,
       snap: false,
+      title: ValueListenableBuilder(
+        valueListenable: appbarStatus,
+        builder: (context, value, child) {
+          return Text(
+            GlobalConfig.userModel.user.username,
+            style: TextStyle(color: value ? Colors.black : Colors.transparent),
+          ).setMargin(EdgeInsets.only(left: 10));
+        },
+      ),
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.only(left: 60, bottom: 0),
         centerTitle: false,
@@ -82,56 +95,34 @@ class _MineInfoPageState extends State<MineInfoPage> {
           StretchMode.fadeTitle,
           StretchMode.zoomBackground
         ],
-        // title: Container(
-        //   padding: EdgeInsets.only(top: 5,bottom: 5),
-        //     child:
-        //     Row(
-        //   children: [
-        //     ClipOval(
-        //       child: Image.network(
-        //         GlobalConfig.userModel.hasUser
-        //             ? GlobalConfig.USER_AVATAR
-        //             : GlobalConfig.DEFAULT_AVATAR,
-        //         width: 50,
-        //         height: 50,
-        //         fit: BoxFit.cover,
-        //       ),
-        //     ),
-        //     Text(
-        //       GlobalConfig.userModel.user.username,
-        //       style: TextStyle(color: lastStatus ? Colors.black : Colors.white),
-        //     ).setMargin(EdgeInsets.only(left: 10)),
-        //   ],
-        // )
-        // ),
         background: Stack(
           children: [
             Image.asset(
               'assets/images/mine_bg.png',
               fit: BoxFit.fill,
+              width: double.infinity,
             ),
             Positioned(
-              left: 20,
-              bottom: 20,
+                left: 20,
+                bottom: 20,
                 child: Row(
-              children: [
-                ClipOval(
-                  child: Image.network(
-                    GlobalConfig.userModel.hasUser
-                        ? GlobalConfig.USER_AVATAR
-                        : GlobalConfig.DEFAULT_AVATAR,
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Text(
-                  GlobalConfig.userModel.user.username,
-                  style: TextStyle(
-                      color: lastStatus ? Colors.black : Colors.white),
-                ).setMargin(EdgeInsets.only(left: 10)),
-              ],
-            ))
+                  children: [
+                    ClipOval(
+                      child: Image.network(
+                        GlobalConfig.userModel.hasUser
+                            ? GlobalConfig.USER_AVATAR
+                            : GlobalConfig.DEFAULT_AVATAR,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Text(
+                      GlobalConfig.userModel.user.username,
+                      style: TextStyle(color: Colors.white),
+                    ).setMargin(EdgeInsets.only(left: 10)),
+                  ],
+                ))
           ],
         ),
       ),
