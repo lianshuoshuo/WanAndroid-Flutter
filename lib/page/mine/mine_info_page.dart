@@ -5,7 +5,9 @@ import 'package:flutter_wanandroid/model/mine_model.dart';
 import 'package:flutter_wanandroid/page/listitem/home_article_item.dart';
 import 'package:flutter_wanandroid/widget/article_skeleton.dart';
 import 'package:flutter_wanandroid/widget/skeleton.dart';
+import 'package:flutter_wanandroid/app/ext/ext_widget.dart';
 
+///个人信息界面
 class MineInfoPage extends StatefulWidget {
   @override
   _MineInfoPageState createState() => _MineInfoPageState();
@@ -53,38 +55,85 @@ class _MineInfoPageState extends State<MineInfoPage> {
         builder: (context, MineViewModel model, child) {
           return CustomScrollView(
             controller: _scrollController,
-            slivers: [
-              SliverAppBar(
-                elevation: 0,
-                leading: BackButton(
-                  color: lastStatus ? Colors.black : Colors.white,
-                ),
-                backgroundColor: Colors.white,
-                expandedHeight: 200,
-                floating: false,
-                pinned: true,
-                snap: false,
-                textTheme: TextTheme(
-                  headline1: TextStyle(fontSize: 18),
-                  headline2: TextStyle(fontSize: 18),
-                ),
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: false,
-                  title: Text(
-                    GlobalConfig.userModel.user.username,
-                    style: TextStyle(
-                        color: lastStatus ? Colors.black : Colors.white),
-                  ),
-                  background: Image.asset(
-                    'assets/images/mine_bg.png',
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-              _buildShareList(model)
-            ],
+            slivers: [_buildHeader(model), _buildShareList(model)],
           );
         },
+      ),
+    );
+  }
+
+  ///头部
+  Widget _buildHeader(model) {
+    return SliverAppBar(
+      elevation: 0,
+      leading: BackButton(
+        color: lastStatus ? Colors.black : Colors.white,
+      ),
+      backgroundColor: Colors.white,
+      expandedHeight: 200,
+      floating: false,
+      pinned: true,
+      snap: false,
+      flexibleSpace: FlexibleSpaceBar(
+        titlePadding: EdgeInsets.only(left: 60, bottom: 0),
+        centerTitle: false,
+        stretchModes: [
+          StretchMode.blurBackground,
+          StretchMode.fadeTitle,
+          StretchMode.zoomBackground
+        ],
+        // title: Container(
+        //   padding: EdgeInsets.only(top: 5,bottom: 5),
+        //     child:
+        //     Row(
+        //   children: [
+        //     ClipOval(
+        //       child: Image.network(
+        //         GlobalConfig.userModel.hasUser
+        //             ? GlobalConfig.USER_AVATAR
+        //             : GlobalConfig.DEFAULT_AVATAR,
+        //         width: 50,
+        //         height: 50,
+        //         fit: BoxFit.cover,
+        //       ),
+        //     ),
+        //     Text(
+        //       GlobalConfig.userModel.user.username,
+        //       style: TextStyle(color: lastStatus ? Colors.black : Colors.white),
+        //     ).setMargin(EdgeInsets.only(left: 10)),
+        //   ],
+        // )
+        // ),
+        background: Stack(
+          children: [
+            Image.asset(
+              'assets/images/mine_bg.png',
+              fit: BoxFit.fill,
+            ),
+            Positioned(
+              left: 20,
+              bottom: 20,
+                child: Row(
+              children: [
+                ClipOval(
+                  child: Image.network(
+                    GlobalConfig.userModel.hasUser
+                        ? GlobalConfig.USER_AVATAR
+                        : GlobalConfig.DEFAULT_AVATAR,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Text(
+                  GlobalConfig.userModel.user.username,
+                  style: TextStyle(
+                      color: lastStatus ? Colors.black : Colors.white),
+                ).setMargin(EdgeInsets.only(left: 10)),
+              ],
+            ))
+          ],
+        ),
       ),
     );
   }

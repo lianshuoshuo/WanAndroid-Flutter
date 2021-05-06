@@ -60,7 +60,6 @@ class _FindPageState extends State<FindPage> {
       child: Container(
         margin: EdgeInsets.only(top: 10),
         color: Colors.white,
-        height: 120,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -195,9 +194,9 @@ class _FindPageState extends State<FindPage> {
                     padding: EdgeInsets.all(10),
                     color: Colors.white,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(_item.title),
+                        Text(_item.title,maxLines: 3,overflow: TextOverflow.ellipsis,),
                         Row(
                           children: [
                             ClipOval(
