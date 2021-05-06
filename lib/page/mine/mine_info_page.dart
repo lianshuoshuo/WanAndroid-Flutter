@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/GlobalConfig.dart';
+import 'package:flutter_wanandroid/app/ext/ext_widget.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
 import 'package:flutter_wanandroid/model/mine_model.dart';
-import 'package:flutter_wanandroid/page/listitem/home_article_item.dart';
+import 'package:flutter_wanandroid/page/listitem/mine_article_item.dart';
 import 'package:flutter_wanandroid/widget/article_skeleton.dart';
 import 'package:flutter_wanandroid/widget/skeleton.dart';
-import 'package:flutter_wanandroid/app/ext/ext_widget.dart';
 
 ///个人信息界面
 class MineInfoPage extends StatefulWidget {
@@ -103,25 +103,35 @@ class _MineInfoPageState extends State<MineInfoPage> {
               width: double.infinity,
             ),
             Positioned(
-                left: 20,
-                bottom: 20,
-                child: Row(
-                  children: [
-                    ClipOval(
-                      child: Image.network(
-                        GlobalConfig.userModel.hasUser
-                            ? GlobalConfig.USER_AVATAR
-                            : GlobalConfig.DEFAULT_AVATAR,
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  margin: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: Color(0x3BFFFFFF),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      ClipOval(
+                        child: Image.network(
+                          GlobalConfig.userModel.hasUser
+                              ? GlobalConfig.USER_AVATAR
+                              : GlobalConfig.DEFAULT_AVATAR,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    Text(
-                      GlobalConfig.userModel.user.username,
-                      style: TextStyle(color: Colors.white),
-                    ).setMargin(EdgeInsets.only(left: 10)),
-                  ],
+                      Text(
+                        GlobalConfig.userModel.user.username,
+                        style: TextStyle(color: Colors.white),
+                      ).setMargin(EdgeInsets.only(left: 10)),
+                    ],
+                  ),
                 ))
           ],
         ),

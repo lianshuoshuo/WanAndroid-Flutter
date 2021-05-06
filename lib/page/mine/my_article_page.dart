@@ -12,15 +12,29 @@ class _MyArticleState extends State<MyArticle> {
     return Scaffold(
       appBar: appBarWhite('我的文章'),
       body: Container(
-          color: Colors.lightGreen,
-          child: MediaQuery.removePadding(
-              context: context,
-              removeBottom: true,
-              removeTop: true,
-              child: ListView(
-                shrinkWrap: true,
-                children: [Text("sdada")],
-              ))),
+          padding: EdgeInsets.all(10),
+          child: Stack(
+            children: [
+              Container(
+                color: Colors.white,
+                child: ListTile(
+                  title: Text('cedsd'),
+                  subtitle: Text('sdad'),
+                  leading: CloseButton(),
+                  trailing: FlutterLogo(),
+                ),
+              ),
+              Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  child: Container(
+                    color: Colors.black12,
+                    child: FlutterLogo(),
+                  ))
+            ],
+          )),
     );
   }
 }
