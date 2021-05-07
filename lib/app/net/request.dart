@@ -135,4 +135,9 @@ class WanAndroidRepository extends BaseRepository {
   Future getUserArticle(int page) async {
     return await get("user/lg/private_articles/$page/json");
   }
+
+  ///删除自己分享的文章
+  Future delUserArticle(int id) async {
+    return await post("lg/user_article/delete/$id/json", null);
+  }
 }

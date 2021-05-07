@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 import 'package:flutter_wanandroid/app/ext/ext_widget.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
+import 'package:flutter_wanandroid/entity/article_bean.dart';
 import 'package:flutter_wanandroid/model/mine_model.dart';
 import 'package:flutter_wanandroid/page/listitem/mine_article_item.dart';
 import 'package:flutter_wanandroid/widget/article_skeleton.dart';
@@ -62,7 +63,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
   }
 
   ///头部
-  Widget _buildHeader(model) {
+  Widget _buildHeader(MineViewModel model) {
     return SliverAppBar(
       elevation: 0,
       leading: ValueListenableBuilder(
@@ -139,14 +140,17 @@ class _MineInfoPageState extends State<MineInfoPage> {
     );
   }
 
+  int currentIndex = -1;
+
   ///分享列表
-  Widget _buildShareList(model) {
+  Widget _buildShareList(MineViewModel model) {
     if (model.isLoading())
       return SliverToBoxAdapter(
         child: SkeletonList(
           builder: (context, index) => ArticleSkeletonItem(),
         ),
       );
+    List<ArticleDatas> datas = model.userDataEntity.shareArticles.datas;
     return SliverToBoxAdapter(
         child: MediaQuery.removePadding(
             context: context,
@@ -173,9 +177,68 @@ class _MineInfoPageState extends State<MineInfoPage> {
                       );
                     },
                     itemBuilder: (context, index) {
-                      return ArticleItem(
-                          model.userDataEntity.shareArticles.datas[index],
-                          index);
+                      return GestureDetector(
+                        onLongPress: () {
+                          setState(() {
+                            currentIndex = index;
+                          });
+                        },
+                        child: Stack(
+                          children: [
+                            ArticleItem(datas[index], index),
+                            Positioned(
+                              left: 0,
+                              right: 0,
+                              top: 0,
+                              bottom: 0,
+                              child: Offstage(
+                                  offstage:
+                                      currentIndex == index ? false : true,
+                                  child: Container(
+                                    color: Colors.black12,
+                                    child: Row(
+                                      children: [
+                                        TextButton(
+                                          child: Text(
+                                            "删除",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17),
+                                          ),
+                                          onPressed: () {
+                                            model
+                                                .delArticle(datas[index].id)
+                                                .then((value) => {
+                                                      if (value)
+                                                        {
+                                                          setState(() {
+                                                            datas.removeAt(
+                                                                index);
+                                                            currentIndex = -1;
+                                                          })
+                                                        }
+                                                    });
+                                          },
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty
+                                                      .resolveWith((states) =>
+                                                          Colors.blue),
+                                              shape: MaterialStateProperty.all(
+                                                  CircleBorder()),
+                                              padding:
+                                                  MaterialStateProperty.all(
+                                                      EdgeInsets.all(15))),
+                                        ),
+                                      ],
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                    ),
+                                  )),
+                            )
+                          ],
+                        ),
+                      );
                     },
                     itemCount:
                         model.userDataEntity?.shareArticles?.datas?.length ?? 0)
