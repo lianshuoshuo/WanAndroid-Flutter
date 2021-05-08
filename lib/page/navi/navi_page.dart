@@ -13,7 +13,11 @@ class NavigatePage extends StatefulWidget {
   }
 }
 
-class NavigatePageState extends State<NavigatePage> {
+class NavigatePageState extends State<NavigatePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

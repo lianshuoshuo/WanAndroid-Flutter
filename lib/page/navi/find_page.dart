@@ -18,9 +18,13 @@ class FindPage extends StatefulWidget {
   _FindPageState createState() => _FindPageState();
 }
 
-class _FindPageState extends State<FindPage> {
+class _FindPageState extends State<FindPage>
+    with AutomaticKeepAliveClientMixin {
   TextStyle _titleStyle =
       TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black);
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +49,17 @@ class _FindPageState extends State<FindPage> {
             onLoadMore: () async {
               model.getSquareList(false);
             },
-            slivers: [_wxList(model), _wendaList(model), SliverToBoxAdapter(
-              child: Container(height: 10,color: Color(0xffe8e8e8),),
-            ),_squareList(model)],
+            slivers: [
+              _wxList(model),
+              _wendaList(model),
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 10,
+                  color: Color(0xffe8e8e8),
+                ),
+              ),
+              _squareList(model)
+            ],
             easyRefreshController: model.easyRefreshController,
           );
         },
@@ -100,8 +112,7 @@ class _FindPageState extends State<FindPage> {
                               width: 45,
                             ),
                           ),
-                          Text(wxItem.name)
-                              .setMargin(EdgeInsets.only(top: 5))
+                          Text(wxItem.name).setMargin(EdgeInsets.only(top: 5))
                         ],
                       ),
                     ),
@@ -164,7 +175,9 @@ class _FindPageState extends State<FindPage> {
   Widget _wendaList(WxAccountViewModel model) {
     return SliverToBoxAdapter(
       child: Container(
-        margin: EdgeInsets.only(top: 10,),
+        margin: EdgeInsets.only(
+          top: 10,
+        ),
         child: Column(
           children: [
             Container(
@@ -198,7 +211,11 @@ class _FindPageState extends State<FindPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(_item.title,maxLines: 3,overflow: TextOverflow.ellipsis,),
+                        Text(
+                          _item.title,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         Row(
                           children: [
                             ClipOval(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/phoenix_header.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
 import 'package:flutter_wanandroid/model/home_model.dart';
 import 'package:flutter_wanandroid/page/listitem/home_article_item.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_wanandroid/widget/article_skeleton.dart';
 import 'package:flutter_wanandroid/widget/banner.dart';
 import 'package:flutter_wanandroid/widget/custom_refresh_widget.dart';
 import 'package:flutter_wanandroid/widget/skeleton.dart';
+import 'package:flutter_wanandroid/widget/space_header.dart';
 import 'package:flutter_wanandroid/widget/view_state_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -56,6 +58,7 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
               return model.getArticleList(false);
             },
             easyRefreshController: model.easyRefreshController,
+            mHeader: SpaceHeader(enableHapticFeedback: true),
             slivers: [
               appBarBanner(model),
               SliverToBoxAdapter(

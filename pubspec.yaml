@@ -38,7 +38,7 @@ dependencies:
   #路径
   path_provider: ^2.0.1
   #刷新组件
-  flutter_easyrefresh: ^2.1.1
+  flutter_easyrefresh: ^2.2.1
   #toast
   fluttertoast: ^4.0.0
   #本地存储
@@ -59,6 +59,10 @@ dependencies:
   auto_size_text: ^2.1.0
   #点赞按钮
   like_button: ^2.0.2
+  #flare动画
+  flare_flutter: ^3.0.0
+  rive: ^0.7.8
+
 
 
 dev_dependencies:
@@ -71,5 +75,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/flare/
+
 
 

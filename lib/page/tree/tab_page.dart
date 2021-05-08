@@ -10,9 +10,9 @@ class TreeTabPage extends StatefulWidget {
 
 class _TreeTabPageState extends State<TreeTabPage>
     with SingleTickerProviderStateMixin {
+  ///是否首次打开
   bool isFirst = true;
 
-  ///是否首次打开
   int pageType = 0;
 
   ///页面类型

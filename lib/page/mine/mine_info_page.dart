@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/phoenix_header.dart';
 import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 import 'package:flutter_wanandroid/app/ext/ext_widget.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_wanandroid/entity/article_bean.dart';
 import 'package:flutter_wanandroid/model/mine_model.dart';
 import 'package:flutter_wanandroid/page/listitem/mine_article_item.dart';
 import 'package:flutter_wanandroid/widget/article_skeleton.dart';
+import 'package:flutter_wanandroid/widget/custom_refresh_widget.dart';
 import 'package:flutter_wanandroid/widget/skeleton.dart';
 
 ///个人信息界面
@@ -53,9 +55,19 @@ class _MineInfoPageState extends State<MineInfoPage> {
         },
         model: MineViewModel(),
         builder: (context, MineViewModel model, child) {
-          return CustomScrollView(
-            controller: _scrollController,
+          return CustomCommonRefreshWidget(
+            enableRefresh: true,
+            enableLoad: true,
+            onRefresh: () async {
+              model.getUserArticle(true);
+            },
+            onLoadMore: () async {
+              model.getUserArticle(false);
+            },
+            scrollController: _scrollController,
             slivers: [_buildHeader(model), _buildShareList(model)],
+            easyRefreshController: model.easyRefreshController,
+            mHeader: PhoenixHeader(enableHapticFeedback: true),
           );
         },
       ),
@@ -150,7 +162,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
           builder: (context, index) => ArticleSkeletonItem(),
         ),
       );
-    List<ArticleDatas> datas = model.userDataEntity.shareArticles.datas;
+    List<ArticleDatas> datas = model.articleList;
     return SliverToBoxAdapter(
         child: MediaQuery.removePadding(
             context: context,
@@ -241,7 +253,7 @@ class _MineInfoPageState extends State<MineInfoPage> {
                       );
                     },
                     itemCount:
-                        model.userDataEntity?.shareArticles?.datas?.length ?? 0)
+                        model.articleList.length ?? 0)
               ],
             )));
   }

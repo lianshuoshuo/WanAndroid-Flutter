@@ -13,7 +13,7 @@ class ProjectPage extends StatefulWidget {
   }
 }
 
-class ProjectPageState extends State<ProjectPage> {
+class ProjectPageState extends State<ProjectPage> with AutomaticKeepAliveClientMixin{
   ValueNotifier<int> currentIndex;
   PageController _pageController;
 
@@ -23,6 +23,8 @@ class ProjectPageState extends State<ProjectPage> {
     _pageController = PageController(initialPage: 0);
     super.initState();
   }
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {

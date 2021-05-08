@@ -9,7 +9,10 @@ class TreeChildPage extends StatefulWidget {
   _State createState() => _State();
 }
 
-class _State extends State<TreeChildPage> {
+class _State extends State<TreeChildPage> with AutomaticKeepAliveClientMixin{
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     return ProviderWidget<TreeViewModel>(
@@ -47,7 +50,7 @@ class _State extends State<TreeChildPage> {
                                     fontSize: 14, color: Color(0xff666666))),
                             onPressed: () {
                               var map = Map<String, dynamic>();
-                              map['pageType'] = 1;
+                              map['pageType'] = 0;
                               map['datas'] = tree.children;
                               map['pageName'] = tree.name;
                               Navigator.of(context)

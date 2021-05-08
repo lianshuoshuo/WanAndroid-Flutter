@@ -13,7 +13,7 @@ class MinePage extends StatefulWidget {
   }
 }
 
-class MinePageState extends State<MinePage> {
+class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin{
   List<MainItemViewBean> itemList1 = [
     MainItemViewBean(
         title: '我的积分',
@@ -154,4 +154,7 @@ class MinePageState extends State<MinePage> {
         break;
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
