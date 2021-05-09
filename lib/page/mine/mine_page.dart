@@ -13,7 +13,7 @@ class MinePage extends StatefulWidget {
   }
 }
 
-class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin{
+class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
   List<MainItemViewBean> itemList1 = [
     MainItemViewBean(
         title: '我的积分',
@@ -151,6 +151,9 @@ class MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin{
         break;
       case "fl://works":
         Navigator.of(context).pushNamed(routers.MY_ARTICLE);
+        break;
+      case "fl://history_record":
+        Navigator.of(context).pushNamed(routers.HISTORY_RECORD_PAGE);
         break;
     }
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/app/GlobalConfig.dart';
+import 'package:flutter_wanandroid/page/home/search_page.dart';
 import 'package:flutter_wanandroid/page/main_page.dart';
 import 'package:flutter_wanandroid/page/mine/coin_rink_page.dart';
 import 'package:flutter_wanandroid/page/mine/collect_page.dart';
+import 'package:flutter_wanandroid/page/mine/history_record_page.dart';
 import 'package:flutter_wanandroid/page/mine/login_page.dart';
 import 'package:flutter_wanandroid/page/mine/mine_info_page.dart';
 import 'package:flutter_wanandroid/page/mine/my_article_page.dart';
@@ -21,6 +23,8 @@ class routers {
   static const String WEB = "/web";///h5
   static const String TREE_TAB = "/TreeTabPage";///体系tab
   static const String MINE_INFO_PAGE = "/MineInfoPage";///个人界面
+  static const String SEARCH_PAGE = "/SearchPage";///搜索界面
+  static const String HISTORY_RECORD_PAGE = "/HistoryRecordPage";///搜索界面
 }
 
 ///路由管理
@@ -36,6 +40,8 @@ class MyRouters {
     routers.COIN_RINK: (BuildContext context, {Object args}) => CoinRinkPage(),
     routers.MY_ARTICLE: (BuildContext context, {Object args}) => MyArticle(),
     routers.MINE_INFO_PAGE: (BuildContext context, {Object args}) => MineInfoPage(),
+    routers.SEARCH_PAGE: (BuildContext context, {Object args}) => SearchPage(),
+    routers.HISTORY_RECORD_PAGE: (BuildContext context, {Object args}) => HistoryRecordPage(),
   };
 
   static MyRouters _singleton;

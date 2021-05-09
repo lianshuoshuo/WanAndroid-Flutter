@@ -140,4 +140,16 @@ class WanAndroidRepository extends BaseRepository {
   Future delUserArticle(int id) async {
     return await post("lg/user_article/delete/$id/json", null);
   }
+
+  ///搜索热词
+  Future searchHotStr() async {
+    return await get('hotkey/json');
+  }
+
+  ///搜索
+  Future search(int page, String searchStr) async {
+    var map = Map<String, dynamic>();
+    map['k'] = searchStr;
+    return await post('article/query/$page/json', map);
+  }
 }

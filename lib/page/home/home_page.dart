@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/phoenix_header.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
+import 'package:flutter_wanandroid/app/router/routers.dart';
 import 'package:flutter_wanandroid/model/home_model.dart';
 import 'package:flutter_wanandroid/page/listitem/home_article_item.dart';
 import 'package:flutter_wanandroid/page/listitem/home_top_article_item.dart';
@@ -118,33 +119,38 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
                           style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                         Expanded(
-                            child: Container(
-                          margin: EdgeInsets.only(left: 10),
-                          padding: EdgeInsets.only(left: 10),
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
-                              color: Colors.black12),
-                          height: 30,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.search,
-                                size: 18,
-                                color: Colors.black26,
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.of(context).pushNamed(routers.SEARCH_PAGE);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.only(left: 10),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                    color: Colors.black12),
+                                height: 30,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.search,
+                                      size: 18,
+                                      color: Colors.black26,
+                                    ),
+                                    MediaQuery.removeViewPadding(
+                                        context: context,
+                                        child: Text(
+                                          '搜索更多',
+                                          style: TextStyle(
+                                              fontSize: 15, color: Colors.black26),
+                                        )),
+                                  ],
+                                ),
                               ),
-                              MediaQuery.removeViewPadding(
-                                  context: context,
-                                  child: Text(
-                                    '搜索更多',
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.black26),
-                                  )),
-                            ],
-                          ),
-                        ))
+                            ))
                       ],
                     ),
                   )

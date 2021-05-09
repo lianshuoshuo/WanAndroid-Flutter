@@ -3,9 +3,12 @@ import 'package:flutter_wanandroid/app/GlobalConfig.dart';
 import 'package:flutter_wanandroid/app/provider/provider_widget.dart';
 import 'package:flutter_wanandroid/app/router/routers.dart';
 import 'package:flutter_wanandroid/entity/article_bean.dart';
+import 'package:flutter_wanandroid/entity/article_db.dart';
 import 'package:flutter_wanandroid/model/collect_model.dart';
+import 'package:flutter_wanandroid/model/db_dao/article_dao.dart';
 import 'package:flutter_wanandroid/widget/image.dart';
 import 'package:like_button/like_button.dart';
+
 ///文章item
 class ArticleItem extends StatelessWidget {
   final ArticleDatas _articleDatas;
@@ -22,6 +25,14 @@ class ArticleItem extends StatelessWidget {
         color: Colors.white,
         child: InkWell(
           onTap: () {
+            ArticleDao dao = ArticleDao();
+            dao.insert(ArticleDbEntity(
+                _articleDatas.author,
+                _articleDatas.desc,
+                _articleDatas.title,
+                _articleDatas.shareUser,
+                _articleDatas.niceDate,
+                _articleDatas.link));
             Navigator.of(context)
                 .pushNamed(routers.WEB, arguments: _articleDatas.link);
           },
@@ -35,7 +46,9 @@ class ArticleItem extends StatelessWidget {
                     ClipOval(
                       child: WrapperImage(
                         imageType: ImageType.random,
-                        url: _articleDatas.author.isEmpty ? _articleDatas.shareUser : _articleDatas.author,
+                        url: _articleDatas.author.isEmpty
+                            ? _articleDatas.shareUser
+                            : _articleDatas.author,
                         height: 25,
                         width: 25,
                       ),
@@ -109,7 +122,8 @@ class ArticleItem extends StatelessWidget {
                                 likeBuilder: (isCollect) {
                                   return Icon(
                                     Icons.favorite_border,
-                                    color: GlobalConfig.userModel.hasUser&&_articleDatas.collect
+                                    color: GlobalConfig.userModel.hasUser &&
+                                            _articleDatas.collect
                                         ? Colors.red
                                         : Colors.grey,
                                     size: 20,

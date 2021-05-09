@@ -6,6 +6,7 @@ import 'package:flutter_wanandroid/entity/coin_list_entity.dart';
 import 'package:flutter_wanandroid/entity/collect_entity.dart';
 import 'package:flutter_wanandroid/entity/my_coin_entity.dart';
 import 'package:flutter_wanandroid/entity/navi_entity.dart';
+import 'package:flutter_wanandroid/entity/search_str_entity.dart';
 import 'package:flutter_wanandroid/entity/tree_entity.dart';
 import 'package:flutter_wanandroid/entity/user_data_entity.dart';
 import 'package:flutter_wanandroid/entity/user_entity.dart';
@@ -43,6 +44,8 @@ class EntityFactory {
       return WxThePublicEntity.fromJson(json) as T;
     }else if (T.toString() == "UserDataEntity") {
       return UserDataEntity.fromJson(json) as T;
+    }else if (T.toString() == "SearchStrEntity") {
+      return SearchStrEntity.fromJson(json) as T;
     } else {
       return json as T;
     }
