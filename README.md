@@ -4,7 +4,7 @@
 自从19年发了一篇[flutter路由框架fluro](https://www.jianshu.com/p/1987cc9b714a)之后就再也没有动态了，哈哈，因为毕业后忙于android开发工作实在没时间去搞flutter了。
 </br>
  ![image.png](https://upload-images.jianshu.io/upload_images/14349345-c073990864228344.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200)</br>
-![image.png](https://upload-images.jianshu.io/upload_images/14349345-ef3f9316703d578a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/100)
+![](https://upload-images.jianshu.io/upload_images/14349345-3737476329ab00d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/220)
 </br>
 
 年后回来，榨干了我的咸鱼时间，重新捡回了flutter。通过不断的深夜学习，利用我那久经‘沙场’的双手,终于完成了完整的flutter项目。话不多说直接上图。奥利给！！！</br>
