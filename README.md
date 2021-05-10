@@ -1,17 +1,24 @@
-giao窝里giao，许久不见，甚是想念。各位客官，走过路过千万不要错过。
+> giao窝里giao，许久不见，甚是想念。各位客官，走过路过千万不要错过。
+</br>
+
 自从19年发了一篇[flutter路由框架fluro](https://www.jianshu.com/p/1987cc9b714a)之后就再也没有动态了，哈哈，因为毕业后忙于android开发工作实在没时间去搞flutter了。
- ![image.png](https://upload-images.jianshu.io/upload_images/14349345-c073990864228344.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200)
+ ![image.png](https://upload-images.jianshu.io/upload_images/14349345-c073990864228344.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200)</br>
 ![image.png](https://upload-images.jianshu.io/upload_images/14349345-ef3f9316703d578a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/100)
-年后回来，榨干了我的咸鱼时间，重新捡回了flutter。通过不断的深夜学习，利用我那久经‘沙场’的双手,终于完成了完整的flutter项目。话不多说直接上图。奥利给！！！
+</br>
+
+年后回来，榨干了我的咸鱼时间，重新捡回了flutter。通过不断的深夜学习，利用我那久经‘沙场’的双手,终于完成了完整的flutter项目。话不多说直接上图。奥利给！！！</br>
+
 ![202105101401472802.jpg](https://upload-images.jianshu.io/upload_images/14349345-a44dd6863a1c41ad.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/840)
+
 ![two.jpg](https://upload-images.jianshu.io/upload_images/14349345-7d64968f80e8f127.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/840)
-![3.jpg](https://upload-images.jianshu.io/upload_images/14349345-2512f71e5e18065d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/840)
-项目的基本界面就在上面了，具体的可以下载demo体验!
+
+![3.jpg](https://upload-images.jianshu.io/upload_images/14349345-2512f71e5e18065d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/840)</br>
+项目的基本界面就在上面了，具体的可以下载demo体验!</br>
 [点我下载](http://d.firim.top/lhpt)
-![image.png](https://upload-images.jianshu.io/upload_images/14349345-6f48f5338c02f3fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/240)
+![image.png](https://upload-images.jianshu.io/upload_images/14349345-6f48f5338c02f3fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/240)</br>
 本demo框架模式采用的是mvvm+provider实现的，mvvm相信各位Android客官已经有所了解，provider是flutter用来管理页面状态的，我们用它来做数据层与页面之间的状态管理，多余的不多介绍了,不懂的可以去查看[provider官方文档](https://pub.dev/packages/provider)介绍。
 
-采用的三方库
+# 采用的三方库
 ```
 #状态管理
   provider: ^4.1.2
