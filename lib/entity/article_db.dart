@@ -5,10 +5,11 @@ class ArticleDbEntity {
   String shareUser;
   String niceDate;
   String link;
+  String envelopePic;
 
 
   ArticleDbEntity( this.author, this.desc, this.title, this.shareUser,
-      this.niceDate, this.link);
+      this.niceDate, this.link,this.envelopePic);
 
   ArticleDbEntity.fromJson(Map<String, dynamic> json) {
     author = json['author'];
@@ -17,6 +18,7 @@ class ArticleDbEntity {
     shareUser = json['shareUser'];
     niceDate = json['niceDate'];
     link = json['link'];
+    envelopePic = json['envelopePic'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,6 +29,7 @@ class ArticleDbEntity {
     data['shareUser'] = this.shareUser;
     data['niceDate'] = this.niceDate;
     data['link'] = this.link;
+    data['envelopePic'] = this.envelopePic;
     return data;
   }
 }

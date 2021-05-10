@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DBManger {
   ///数据库版本号
-  static const int _VERSION = 1;
+  static const int _VERSION = 2;
 
   ///数据库名称
   static const String _DB_NAME = 'wan_flutter.db';

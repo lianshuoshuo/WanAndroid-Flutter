@@ -32,7 +32,8 @@ class ArticleItem extends StatelessWidget {
                 _articleDatas.title,
                 _articleDatas.shareUser,
                 _articleDatas.niceDate,
-                _articleDatas.link));
+                _articleDatas.link,
+                _articleDatas.envelopePic??""));
             Navigator.of(context)
                 .pushNamed(routers.WEB, arguments: _articleDatas.link);
           },

@@ -14,7 +14,7 @@ class ArticleDao extends BaseDBProvider {
   @override
   tableSqlString() {
     return tableBaseString(name, columnId) +
-        '''author text,desc text,title text,shareUser text,niceDate text,link text)''';
+        '''author text,desc text,title text,shareUser text,niceDate text,link text,envelopePic text)''';
   }
 
   Future insert(ArticleDbEntity bean) async {
@@ -41,6 +41,6 @@ class ArticleDao extends BaseDBProvider {
           maps.map((e) => ArticleDbEntity.fromJson(e)).toList();
       return list;
     }
-    return null;
+    return [];
   }
 }
